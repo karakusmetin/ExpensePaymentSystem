@@ -1,0 +1,11 @@
+C:\Users\fener\Desktop\Expense-Payment-System\ESP.Base\bin\Debug\net7.0\ESP.Base.deps.json
+C:\Users\fener\Desktop\Expense-Payment-System\ESP.Base\bin\Debug\net7.0\ESP.Base.dll
+C:\Users\fener\Desktop\Expense-Payment-System\ESP.Base\bin\Debug\net7.0\ESP.Base.pdb
+C:\Users\fener\Desktop\Expense-Payment-System\ESP.Base\obj\Debug\net7.0\ESP.Base.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\fener\Desktop\Expense-Payment-System\ESP.Base\obj\Debug\net7.0\ESP.Base.AssemblyInfoInputs.cache
+C:\Users\fener\Desktop\Expense-Payment-System\ESP.Base\obj\Debug\net7.0\ESP.Base.AssemblyInfo.cs
+C:\Users\fener\Desktop\Expense-Payment-System\ESP.Base\obj\Debug\net7.0\ESP.Base.csproj.CoreCompileInputs.cache
+C:\Users\fener\Desktop\Expense-Payment-System\ESP.Base\obj\Debug\net7.0\ESP.Base.dll
+C:\Users\fener\Desktop\Expense-Payment-System\ESP.Base\obj\Debug\net7.0\refint\ESP.Base.dll
+C:\Users\fener\Desktop\Expense-Payment-System\ESP.Base\obj\Debug\net7.0\ESP.Base.pdb
+C:\Users\fener\Desktop\Expense-Payment-System\ESP.Base\obj\Debug\net7.0\ref\ESP.Base.dll

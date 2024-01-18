@@ -1,0 +1,17 @@
+C:\Users\fener\Desktop\Expense-Payment-System\EPS.Data\obj\Debug\net7.0\EPS.Data.csproj.AssemblyReference.cache
+C:\Users\fener\Desktop\Expense-Payment-System\EPS.Data\obj\Debug\net7.0\EPS.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\fener\Desktop\Expense-Payment-System\EPS.Data\obj\Debug\net7.0\EPS.Data.AssemblyInfoInputs.cache
+C:\Users\fener\Desktop\Expense-Payment-System\EPS.Data\obj\Debug\net7.0\EPS.Data.AssemblyInfo.cs
+C:\Users\fener\Desktop\Expense-Payment-System\EPS.Data\obj\Debug\net7.0\EPS.Data.csproj.CoreCompileInputs.cache
+C:\Users\fener\Desktop\Expense-Payment-System\EPS.Data\bin\Debug\net7.0\EPS.Data.deps.json
+C:\Users\fener\Desktop\Expense-Payment-System\EPS.Data\bin\Debug\net7.0\EPS.Data.runtimeconfig.json
+C:\Users\fener\Desktop\Expense-Payment-System\EPS.Data\bin\Debug\net7.0\EPS.Data.dll
+C:\Users\fener\Desktop\Expense-Payment-System\EPS.Data\bin\Debug\net7.0\EPS.Data.pdb
+C:\Users\fener\Desktop\Expense-Payment-System\EPS.Data\bin\Debug\net7.0\ESP.Base.dll
+C:\Users\fener\Desktop\Expense-Payment-System\EPS.Data\bin\Debug\net7.0\ESP.Base.pdb
+C:\Users\fener\Desktop\Expense-Payment-System\EPS.Data\obj\Debug\net7.0\EPS.Data.csproj.CopyComplete
+C:\Users\fener\Desktop\Expense-Payment-System\EPS.Data\obj\Debug\net7.0\EPS.Data.dll
+C:\Users\fener\Desktop\Expense-Payment-System\EPS.Data\obj\Debug\net7.0\refint\EPS.Data.dll
+C:\Users\fener\Desktop\Expense-Payment-System\EPS.Data\obj\Debug\net7.0\EPS.Data.pdb
+C:\Users\fener\Desktop\Expense-Payment-System\EPS.Data\obj\Debug\net7.0\EPS.Data.genruntimeconfig.cache
+C:\Users\fener\Desktop\Expense-Payment-System\EPS.Data\obj\Debug\net7.0\ref\EPS.Data.dll
