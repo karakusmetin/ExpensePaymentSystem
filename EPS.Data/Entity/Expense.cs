@@ -18,6 +18,7 @@ namespace EPS.Data.Entity
 		
 		public decimal Amount { get; set; }
 		public string Location { get; set; }
+		public string Description { get; set; }
 		public string? DocumentUrl { get; set; } // Fatura veya fişin depolandığı URL
 		public ExpenseRequestStatus IsApproved { get; set; } // Yönetici tarafından onaylanıp onaylanmadığı
 		public string RejectionReason { get; set; } // Reddedilme durumunda nedeni
@@ -30,7 +31,6 @@ namespace EPS.Data.Entity
 		public void Configure(EntityTypeBuilder<Expense> builder)
 		{
 			builder.Property(x => x.InsertDate).IsRequired(true);
-			builder.Property(x => x.InsertUserId).IsRequired(true);
 			builder.Property(x => x.UpdateDate).IsRequired(false);
 			builder.Property(x => x.UpdateUserId).IsRequired(false);
 			builder.Property(x => x.IsActive).IsRequired(true).HasDefaultValue(true);
@@ -39,6 +39,7 @@ namespace EPS.Data.Entity
 			builder.Property(x => x.ExpenseCategoryId).IsRequired(true);
 			builder.Property(x => x.Amount).IsRequired(true).HasPrecision(18,4);
 			builder.Property(x => x.Location).IsRequired(true).HasMaxLength(25);
+			builder.Property(x => x.Description).IsRequired(true).HasMaxLength(300);
 			builder.Property(x => x.DocumentUrl).IsRequired(false);
 			builder.Property(x => x.IsApproved).IsRequired(true).HasDefaultValue(value:ExpenseRequestStatus.Pending);
 			builder.Property(x => x.RejectionReason).IsRequired(true).HasMaxLength(250);

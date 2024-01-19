@@ -24,7 +24,6 @@ namespace EPS.Data.Entity
 		public void Configure(EntityTypeBuilder<ExpenseRequest> builder)
 		{
 			builder.Property(x => x.InsertDate).IsRequired(true);
-			builder.Property(x => x.InsertUserId).IsRequired(true);
 			builder.Property(x => x.UpdateDate).IsRequired(false);
 			builder.Property(x => x.UpdateUserId).IsRequired(false);
 			builder.Property(x => x.IsActive).IsRequired(true).HasDefaultValue(true);

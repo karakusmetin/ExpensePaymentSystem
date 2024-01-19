@@ -11,7 +11,6 @@ namespace EPS.Data.Entity
 		public string Role { get; set; } = "Employee";
 		public DateTime? LastActivityDate { get; set; }
 		public int? PasswordRetryCount { get; set; }
-		public int? Status { get; set; }
 		public int ExpenRequestCount { get; set; }
 
 
@@ -23,7 +22,6 @@ namespace EPS.Data.Entity
 		public void Configure(EntityTypeBuilder<Employee> builder)
 		{
 			builder.Property(x => x.InsertDate).IsRequired(true);
-			builder.Property(x => x.InsertUserId).IsRequired(true);
 			builder.Property(x => x.UpdateDate).IsRequired(false);
 			builder.Property(x => x.UpdateUserId).IsRequired(false);
 			builder.Property(x => x.IsActive).IsRequired(true).HasDefaultValue(true);
@@ -35,8 +33,6 @@ namespace EPS.Data.Entity
 			builder.Property(x => x.Email).IsRequired(true);
 			builder.Property(x => x.LastActivityDate).IsRequired(false);
 			builder.Property(x => x.PasswordRetryCount).IsRequired(false).HasDefaultValue(0);
-			builder.Property(x => x.Status).IsRequired(false);
-			builder.Property(x => x.Status).IsRequired(true).HasDefaultValue(0);
 		}
 	}
 }
