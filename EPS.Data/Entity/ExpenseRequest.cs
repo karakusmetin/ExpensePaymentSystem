@@ -30,7 +30,7 @@ namespace EPS.Data.Entity
 			builder.Property(x => x.IsActive).IsRequired(true).HasDefaultValue(true);
 
 			builder.Property(x=>x.ExpenseId).IsRequired(true);
-			builder.Property(x=>x.Status).IsRequired(true).HasDefaultValue("Pending");
+			builder.Property(x=>x.Status).IsRequired(true);
 			builder.Property(x => x.EvaluationComment).IsRequired(true).HasMaxLength(500);
 		}
 	}

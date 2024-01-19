@@ -9,9 +9,9 @@ namespace EPS.Data.Entity
 	public class Employee : UserBaseEntity
 	{
 		public string Role { get; set; } = "Employee";
-		public DateTime LastActivityDate { get; set; }
-		public int PasswordRetryCount { get; set; }
-		public int Status { get; set; }
+		public DateTime? LastActivityDate { get; set; }
+		public int? PasswordRetryCount { get; set; }
+		public int? Status { get; set; }
 		public int ExpenRequestCount { get; set; }
 
 

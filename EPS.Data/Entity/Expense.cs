@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
+using EPS.Data.Enums;
 
 namespace EPS.Data.Entity
 {
@@ -17,8 +18,8 @@ namespace EPS.Data.Entity
 		
 		public decimal Amount { get; set; }
 		public string Location { get; set; }
-		public string DocumentUrl { get; set; } // Fatura veya fişin depolandığı URL
-		public bool IsApproved { get; set; } // Yönetici tarafından onaylanıp onaylanmadığı
+		public string? DocumentUrl { get; set; } // Fatura veya fişin depolandığı URL
+		public ExpenseRequestStatus IsApproved { get; set; } // Yönetici tarafından onaylanıp onaylanmadığı
 		public string RejectionReason { get; set; } // Reddedilme durumunda nedeni
 		public DateTime SubmissionDate { get; set; }
 		public DateTime? ApprovalDate { get; set; } // Onay tarihi, eğer onaylandıysa
@@ -39,7 +40,7 @@ namespace EPS.Data.Entity
 			builder.Property(x => x.Amount).IsRequired(true).HasPrecision(18,4);
 			builder.Property(x => x.Location).IsRequired(true).HasMaxLength(25);
 			builder.Property(x => x.DocumentUrl).IsRequired(false);
-			builder.Property(x => x.IsApproved).IsRequired(false).HasDefaultValue("Pendig");
+			builder.Property(x => x.IsApproved).IsRequired(true).HasDefaultValue(value:ExpenseRequestStatus.Pending);
 			builder.Property(x => x.RejectionReason).IsRequired(true).HasMaxLength(250);
 			builder.Property(x=>x.SubmissionDate).IsRequired(true);
 			builder.Property(x=>x.ApprovalDate).IsRequired(false);
