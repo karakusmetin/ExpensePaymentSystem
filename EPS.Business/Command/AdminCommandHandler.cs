@@ -4,8 +4,8 @@ using EPS.Data;
 using EPS.Data.Entity;
 using EPS.Schema;
 using MediatR;
-using System.Data.Entity;
-using Vb.Base.Response;
+using ESP.Base.Response;
+using Microsoft.EntityFrameworkCore;
 
 namespace EPS.Business.Command
 {

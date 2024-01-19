@@ -5,8 +5,8 @@ using EPS.Data.Entity;
 using EPS.Schema;
 using LinqKit;
 using MediatR;
-using System.Data.Entity;
-using Vb.Base.Response;
+using ESP.Base.Response;
+using Microsoft.EntityFrameworkCore;
 
 namespace EPS.Business.Query
 {

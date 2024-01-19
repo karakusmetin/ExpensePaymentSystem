@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net7.0": {
-      "AutoMapper/12.0.1": {
+      "AutoMapper/12.0.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.7.0"
@@ -1885,15 +1885,15 @@
     }
   },
   "libraries": {
-    "AutoMapper/12.0.1": {
-      "sha512": "hvV62vl6Hp/WfQ24yzo3Co9+OPl8wH8hApwVtgWpiAynVJkUcs7xvehnSftawL8Pe8FrPffBRM3hwzLQqWDNjA==",
+    "AutoMapper/12.0.0": {
+      "sha512": "0Rmg0zI5AFu1O/y//o9VGyhxKjhggWpk9mOA1tp0DEVx40c61bs+lnQv+0jUq8XbniF7FKgIVvI1perqiMtLrA==",
       "type": "package",
-      "path": "automapper/12.0.1",
+      "path": "automapper/12.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
-        "automapper.12.0.1.nupkg.sha512",
+        "automapper.12.0.0.nupkg.sha512",
         "automapper.nuspec",
         "icon.png",
         "lib/netstandard2.1/AutoMapper.dll",
@@ -5121,8 +5121,9 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "AutoMapper >= 12.0.1",
+      "AutoMapper >= 12.0.0",
       "EPS.Schema >= 1.0.0",
+      "ESP.Base >= 1.0.0",
       "FluentValidation.AspNetCore >= 9.5.2",
       "FluentValidation.DependencyInjectionExtensions >= 9.5.2",
       "Hangfire >= 1.7.28",
@@ -5161,6 +5162,9 @@
           "projectReferences": {
             "C:\\Users\\fener\\Desktop\\Expense-Payment-System\\EPS.Schema\\EPS.Schema.csproj": {
               "projectPath": "C:\\Users\\fener\\Desktop\\Expense-Payment-System\\EPS.Schema\\EPS.Schema.csproj"
+            },
+            "C:\\Users\\fener\\Desktop\\Expense-Payment-System\\ESP.Base\\ESP.Base.csproj": {
+              "projectPath": "C:\\Users\\fener\\Desktop\\Expense-Payment-System\\ESP.Base\\ESP.Base.csproj"
             }
           }
         }
@@ -5177,7 +5181,7 @@
         "dependencies": {
           "AutoMapper": {
             "target": "Package",
-            "version": "[12.0.1, )"
+            "version": "[12.0.0, )"
           },
           "FluentValidation.AspNetCore": {
             "target": "Package",

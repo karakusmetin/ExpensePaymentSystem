@@ -1,6 +1,6 @@
 ﻿using EPS.Schema;
 using MediatR;
-using Vb.Base.Response;
+using ESP.Base.Response;
 
 namespace EPS.Business.Cqrs
 {

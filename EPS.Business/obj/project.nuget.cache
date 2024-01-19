@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "s9f9ZJi4Ha/96JGy+A9o/7k4MHQDzD2kk5/sXMqpjMG7H8PHp0dYiDFf4XP7Eq512xOXz6OWhkeFK5vekvaK8w==",
+  "dgSpecHash": "Z0bN7sz2T3xXrf/quz4b6JTqD5YdOGwogshXYJacGZFuSUG7drtJzOaBftZiojRCOMjwNWlgypZcO7lMM10dAQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\fener\\Desktop\\Expense-Payment-System\\EPS.Business\\EPS.Business.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\fener\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\fener\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\fener\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\fener\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\fener\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",

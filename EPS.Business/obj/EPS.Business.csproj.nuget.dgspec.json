@@ -30,6 +30,9 @@
             "projectReferences": {
               "C:\\Users\\fener\\Desktop\\Expense-Payment-System\\EPS.Schema\\EPS.Schema.csproj": {
                 "projectPath": "C:\\Users\\fener\\Desktop\\Expense-Payment-System\\EPS.Schema\\EPS.Schema.csproj"
+              },
+              "C:\\Users\\fener\\Desktop\\Expense-Payment-System\\ESP.Base\\ESP.Base.csproj": {
+                "projectPath": "C:\\Users\\fener\\Desktop\\Expense-Payment-System\\ESP.Base\\ESP.Base.csproj"
               }
             }
           }
@@ -46,7 +49,7 @@
           "dependencies": {
             "AutoMapper": {
               "target": "Package",
-              "version": "[12.0.1, )"
+              "version": "[12.0.0, )"
             },
             "FluentValidation.AspNetCore": {
               "target": "Package",

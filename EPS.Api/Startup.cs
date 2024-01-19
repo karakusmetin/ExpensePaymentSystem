@@ -1,18 +1,15 @@
+using AutoMapper;
+using EPS.Business.Cqrs;
 using EPS.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
+using ESP.Business.Mapper;
 
 namespace EPS.Api
 {
@@ -31,11 +28,20 @@ namespace EPS.Api
 			string connection = Configuration.GetConnectionString("MsSqlConnection");
 			services.AddDbContext<EPSDbContext>(options => options.UseSqlServer(connection));
 
+			services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateAdminCommand).GetTypeInfo().Assembly));
+			
+			var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new MapperConfig()));
+			services.AddSingleton(mapperConfig.CreateMapper());
+
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "EPS.Api", Version = "v1" });
 			});
+			services.AddEndpointsApiExplorer();
+
+			services.AddResponseCaching();
+			services.AddMemoryCache();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,10 +60,7 @@ namespace EPS.Api
 
 			app.UseAuthorization();
 
-			app.UseEndpoints(endpoints =>
-			{
-				endpoints.MapControllers();
-			});
+			app.UseEndpoints(x => { x.MapControllers(); });
 		}
 	}
 }

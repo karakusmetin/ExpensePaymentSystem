@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using EPS.Data.Entity;
 using EPS.Schema;
-using System.Data;
-using System.Net;
 
-namespace Vb.Business.Mapper;
+namespace ESP.Business.Mapper;
 
 public class MapperConfig : Profile
 {

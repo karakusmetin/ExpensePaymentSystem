@@ -2,7 +2,7 @@
 
 using System.Text.Json;
 
-namespace Vb.Base.Response;
+namespace ESP.Base.Response;
 
 
 public class ApiResponse
