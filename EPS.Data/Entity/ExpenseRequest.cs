@@ -9,14 +9,22 @@ namespace EPS.Data.Entity
 	[Table("ExpenseRequest", Schema = "dbo")]
 
 	public class ExpenseRequest : BaseEntityWithId
-	{	
-		public int ExpenseId { get; set; }
-		public Expense Expenses { get; set; }
-        
-		
+	{
+		public int EmployeeId { get; set; } // Personel ID'si
+		public virtual Employee Employee { get; set; }
 
-		public ExpenseRequestStatus Status { get; set; }
-		public string EvaluationComment { get; set; }
+		public int ExpenseCategoryId { get; set; }
+		public virtual ExpenseCategory ExpenseCategory { get; set; }
+
+
+		public decimal Amount { get; set; }
+		public string Location { get; set; }
+		public string Description { get; set; }
+		public string? DocumentUrl { get; set; } // Fatura veya fişin depolandığı URL
+		public DateTime SubmissionDate { get; set; }
+
+
+		public ExpenseRequestStatus IsApproved { get; set; } // Yönetici tarafından onaylanıp onaylanmadığı
 	}
 
 	public class ExpenseRequestConfiguration : IEntityTypeConfiguration<ExpenseRequest>
@@ -28,9 +36,15 @@ namespace EPS.Data.Entity
 			builder.Property(x => x.UpdateUserId).IsRequired(false);
 			builder.Property(x => x.IsActive).IsRequired(true).HasDefaultValue(true);
 
-			builder.Property(x=>x.ExpenseId).IsRequired(true);
-			builder.Property(x=>x.Status).IsRequired(true);
-			builder.Property(x => x.EvaluationComment).IsRequired(true).HasMaxLength(500);
+			builder.Property(x => x.EmployeeId).IsRequired(true);
+			builder.Property(x => x.ExpenseCategoryId).IsRequired(true);
+			builder.Property(x => x.Amount).IsRequired(true).HasPrecision(18, 4);
+			builder.Property(x => x.Location).IsRequired(true).HasMaxLength(25);
+			builder.Property(x => x.Description).IsRequired(true).HasMaxLength(300);
+			builder.Property(x => x.DocumentUrl).IsRequired(false);
+			builder.Property(x => x.IsApproved).IsRequired(true).HasDefaultValue(value: ExpenseRequestStatus.Pending);
+			builder.Property(x => x.SubmissionDate).IsRequired(true);
+			
 		}
 	}
 }

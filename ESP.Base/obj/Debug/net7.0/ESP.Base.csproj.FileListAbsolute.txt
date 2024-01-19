@@ -9,3 +9,4 @@ C:\Users\fener\Desktop\Expense-Payment-System\ESP.Base\obj\Debug\net7.0\ESP.Base
 C:\Users\fener\Desktop\Expense-Payment-System\ESP.Base\obj\Debug\net7.0\refint\ESP.Base.dll
 C:\Users\fener\Desktop\Expense-Payment-System\ESP.Base\obj\Debug\net7.0\ESP.Base.pdb
 C:\Users\fener\Desktop\Expense-Payment-System\ESP.Base\obj\Debug\net7.0\ref\ESP.Base.dll
+C:\Users\fener\Desktop\Expense-Payment-System\ESP.Base\obj\Debug\net7.0\ESP.Base.csproj.AssemblyReference.cache
