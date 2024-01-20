@@ -42,14 +42,14 @@ namespace EPS.Business.Command
 
 		public async Task<ApiResponse> Handle(UpdateExpenseCategoryCommand request, CancellationToken cancellationToken)
 		{
-			var dbAdmin = await dbContext.Set<ExpenseCategory>().Where(x => x.Id == request.Id)
+			var dbExpenseCategory = await dbContext.Set<ExpenseCategory>().Where(x => x.Id == request.Id)
 			.FirstOrDefaultAsync(cancellationToken);
-			if (dbAdmin == null)
+			if (dbExpenseCategory == null)
 			{
 				return new ApiResponse("Record not found");
 			}
-			dbAdmin.CategoryName = request.Model.CategoryName;
-			dbAdmin.UpdateDate= DateTime.UtcNow;
+			dbExpenseCategory.CategoryName = request.Model.CategoryName;
+			dbExpenseCategory.UpdateDate= DateTime.UtcNow;
 
 			await dbContext.SaveChangesAsync(cancellationToken);
 			return new ApiResponse();
@@ -57,13 +57,14 @@ namespace EPS.Business.Command
 
 		public async Task<ApiResponse> Handle(DeleteExpenseCategoryCommand request, CancellationToken cancellationToken)
 		{
-			var dbAdmin = await dbContext.Set<Admin>().Where(x => x.Id == request.Id)
+			var dbExpenseCategory = await dbContext.Set<Admin>().Where(x => x.Id == request.Id)
 			.FirstOrDefaultAsync(cancellationToken);
-			if (dbAdmin == null)
+			if (dbExpenseCategory == null)
 			{
 				return new ApiResponse("Record not found");
 			}
-			dbAdmin.IsActive = false;
+			dbExpenseCategory.IsActive = false;
+			dbExpenseCategory.UpdateDate = DateTime.UtcNow;
 			await dbContext.SaveChangesAsync(cancellationToken);
 			return new ApiResponse();
 		}

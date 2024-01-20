@@ -98,13 +98,14 @@ namespace EPS.Business.Command
 
 		public async Task<ApiResponse> Handle(DeleteExpenditureDemandCommand request, CancellationToken cancellationToken)
 		{
-			var dbAdmin = await dbContext.Set<ExpenditureDemand>().Where(x => x.Id == request.Id)
+			var dbExpenditureDemand = await dbContext.Set<ExpenditureDemand>().Where(x => x.Id == request.Id)
 			.FirstOrDefaultAsync(cancellationToken);
-			if (dbAdmin == null)
+			if (dbExpenditureDemand == null)
 			{
 				return new ApiResponse("Record not found");
 			}
-			dbAdmin.IsActive = false;
+			dbExpenditureDemand.IsActive = false;
+			dbExpenditureDemand.UpdateDate = DateTime.UtcNow;
 			await dbContext.SaveChangesAsync(cancellationToken);
 			return new ApiResponse();
 		}

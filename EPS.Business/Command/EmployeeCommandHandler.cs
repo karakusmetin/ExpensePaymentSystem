@@ -31,6 +31,8 @@ namespace EPS.Business.Command
 				return new ApiResponse<EmployeeResponse>($"{request.Model.UserName} is used by another Employee.");
 			}
 			var entity = mapper.Map<EmployeeRequest, Employee>(request.Model);
+			entity.InsertDate = DateTime.Now;
+			entity.UpdateDate = DateTime.Now;
 
 			var entityResult = await dbContext.AddAsync(entity, cancellationToken);
 			await dbContext.SaveChangesAsync(cancellationToken);
@@ -50,6 +52,7 @@ namespace EPS.Business.Command
 			dbEmployee.FirstName = request.Model.FirstName;
 			dbEmployee.LastName = request.Model.LastName;
 			dbEmployee.Email = request.Model.Email;
+			dbEmployee.UpdateDate = DateTime.Now;
 
 			await dbContext.SaveChangesAsync(cancellationToken);
 			return new ApiResponse();
@@ -57,13 +60,14 @@ namespace EPS.Business.Command
 
 		public async Task<ApiResponse> Handle(DeleteEmployeeCommand request, CancellationToken cancellationToken)
 		{
-			var dbAdmin = await dbContext.Set<Employee>().Where(x => x.Id == request.Id)
+			var dbEmployee = await dbContext.Set<Employee>().Where(x => x.Id == request.Id)
 			.FirstOrDefaultAsync(cancellationToken);
-			if (dbAdmin == null)
+			if (dbEmployee == null)
 			{
 				return new ApiResponse("Record not found");
 			}
-			dbAdmin.IsActive = false;
+			dbEmployee.IsActive = false;
+			dbEmployee.UpdateDate = DateTime.Now;
 			await dbContext.SaveChangesAsync(cancellationToken);
 			return new ApiResponse();
 		}

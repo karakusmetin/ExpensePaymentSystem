@@ -32,6 +32,8 @@ namespace EPS.Business.Command
 				return new ApiResponse<AdminResponse>($"{request.Model.UserName} is used by another Admin.");
 			}
 			var entity = mapper.Map<AdminRequest, Admin>(request.Model);
+			entity.InsertDate = DateTime.Now;
+			entity.UpdateDate = DateTime.Now;
 			
 			var entityResult = await dbContext.AddAsync(entity, cancellationToken);
 			await dbContext.SaveChangesAsync(cancellationToken);
@@ -51,6 +53,7 @@ namespace EPS.Business.Command
 			dbAdmin.FirstName = request.Model.FirstName;
 			dbAdmin.LastName = request.Model.LastName;
 			dbAdmin.Email = request.Model.Email;
+			dbAdmin.UpdateDate = DateTime.Now;
 
 			await dbContext.SaveChangesAsync(cancellationToken);
 			return new ApiResponse();
@@ -65,6 +68,7 @@ namespace EPS.Business.Command
 				return new ApiResponse("Record not found");
 			}
 			dbAdmin.IsActive = false;
+			dbAdmin.UpdateDate = DateTime.Now;
 			await dbContext.SaveChangesAsync(cancellationToken);
 			return new ApiResponse();
 		}
