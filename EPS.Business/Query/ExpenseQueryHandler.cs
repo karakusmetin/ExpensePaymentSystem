@@ -50,9 +50,13 @@ namespace EPS.Business.Query
 		{
 			var predicate = PredicateBuilder.New<Expense>(true);
 
+			if (string.IsNullOrEmpty(request.Title))
+				predicate.And(x => x.Title.ToUpper().Contains(request.Title.ToUpper()));
+			
+			if (string.IsNullOrEmpty(request.ExpenseCategory))
+				predicate.And(x => x.ExpenseCategory.CategoryName.ToUpper().Contains(request.ExpenseCategory.ToUpper()));
+
 			var list = await dbContext.Set<Expense>()
-				.Include(x => x.Title)
-				.Include(x => x.ExpenseCategory)
 				.Where(predicate).ToListAsync(cancellationToken);
 
 			var mappedList = mapper.Map<List<Expense>, List<ExpenseResponse>>(list);

@@ -49,10 +49,14 @@ namespace EPS.Business.Query
 		public async Task<ApiResponse<List<EmployeeResponse>>> Handle(GetEmployeeByParameterQuery request, CancellationToken cancellationToken)
 		{
 			var predicate = PredicateBuilder.New<Employee>(true);
+			
+			if (string.IsNullOrEmpty(request.FirstName))
+
+				predicate.And(x => x.FirstName.ToUpper().Contains(request.FirstName.ToUpper()));
+			if (string.IsNullOrEmpty(request.LastName))
+				predicate.And(x => x.LastName.ToUpper().Contains(request.LastName.ToUpper()));
 
 			var list = await dbContext.Set<Employee>()
-				.Include(x => x.FirstName)
-				.Include(x => x.LastName)
 				.Where(predicate).ToListAsync(cancellationToken);
 
 			var mappedList = mapper.Map<List<Employee>, List<EmployeeResponse>>(list);
