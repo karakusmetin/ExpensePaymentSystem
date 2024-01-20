@@ -14,7 +14,7 @@ namespace EPS.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<ExpenseCategory> ExpenseCategories { get; set; }
-        public DbSet<ExpenseRequest> ExpenseRequests { get; set; }
+        public DbSet<ExpenditureDemand> ExpenditureDemands { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -22,7 +22,7 @@ namespace EPS.Data
 			modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
 			modelBuilder.ApplyConfiguration(new ExpenseConfiguration());
 			modelBuilder.ApplyConfiguration(new ExpenseCategoryConfiguration());
-			modelBuilder.ApplyConfiguration(new ExpenseRequestConfiguration());
+			modelBuilder.ApplyConfiguration(new ExpenditureDemandConfiguration());
 			base.OnModelCreating(modelBuilder);
 		}
 	}

@@ -261,7 +261,7 @@ namespace EPS.Data.Migrations
                     b.ToTable("ExpenseCategory", "dbo");
                 });
 
-            modelBuilder.Entity("EPS.Data.Entity.ExpenseRequest", b =>
+            modelBuilder.Entity("EPS.Data.Entity.ExpenditureDemand", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -301,7 +301,7 @@ namespace EPS.Data.Migrations
 
                     b.HasIndex("ExpenseId");
 
-                    b.ToTable("ExpenseRequest", "dbo");
+                    b.ToTable("ExpenditureDemand", "dbo");
                 });
 
             modelBuilder.Entity("EPS.Data.Entity.Expense", b =>
@@ -323,7 +323,7 @@ namespace EPS.Data.Migrations
                     b.Navigation("ExpenseCategory");
                 });
 
-            modelBuilder.Entity("EPS.Data.Entity.ExpenseRequest", b =>
+            modelBuilder.Entity("EPS.Data.Entity.ExpenditureDemand", b =>
                 {
                     b.HasOne("EPS.Data.Entity.Expense", "Expenses")
                         .WithMany()

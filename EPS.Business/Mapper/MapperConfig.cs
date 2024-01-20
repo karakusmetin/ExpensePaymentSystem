@@ -14,7 +14,7 @@ public class MapperConfig : Profile
 		CreateMap<EmployeeRequest, Employee>();
 		CreateMap<Employee, EmployeeResponse>();
 
-		CreateMap<EPS.Schema.ExpenseRequest, Expense>();
+		CreateMap<ExpenditureDemand, Expense>();
 		CreateMap<Expense, ExpenseResponse>()
 			.ForMember(dest => dest.EmployeeId,
 				src => src.MapFrom(x => x.EmployeeId))
@@ -27,8 +27,19 @@ public class MapperConfig : Profile
 
 		CreateMap<ExpenseCategoryRequest, ExpenseCategory>();
 		CreateMap<ExpenseCategory, ExpenseCategoryResponse>();
+		
+		CreateMap<ExpenditureDemand, Expense>();
 
-		CreateMap<ExpenseRequestRequest, EPS.Data.Entity.ExpenseRequest>();
-		CreateMap<EPS.Data.Entity.ExpenseRequest, ExpenseRequestResponse>();
+		CreateMap<ExpenditureDemandRequest, ExpenditureDemand>();
+		CreateMap<ExpenditureDemand, ExpenditureDemandResponse>()
+			.ForMember(dest => dest.EmployeeId,
+				src => src.MapFrom(x => x.EmployeeId))
+			.ForMember(dest => dest.EmployeeFirstName,
+				src => src.MapFrom(x => x.Employee.FirstName))
+			.ForMember(dest => dest.EmployeeLastName,
+				src => src.MapFrom(x => x.Employee.LastName))
+			.ForMember(dest => dest.ExpenseCategory,
+				src => src.MapFrom(x => x.ExpenseCategory.CategoryName));
+
 	}
 }

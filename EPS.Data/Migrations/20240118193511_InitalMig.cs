@@ -127,7 +127,7 @@ namespace EPS.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ExpenseRequest",
+                name: "ExpenditureDemand",
                 schema: "dbo",
                 columns: table => new
                 {
@@ -144,9 +144,9 @@ namespace EPS.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExpenseRequest", x => x.Id);
+                    table.PrimaryKey("PK_ExpenditureDemand", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ExpenseRequest_Expense_ExpenseId",
+                        name: "FK_ExpenditureDemand_Expense_ExpenseId",
                         column: x => x.ExpenseId,
                         principalSchema: "dbo",
                         principalTable: "Expense",
@@ -167,9 +167,9 @@ namespace EPS.Data.Migrations
                 column: "ExpenseCategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExpenseRequest_ExpenseId",
+                name: "IX_ExpenditureDemand_ExpenseId",
                 schema: "dbo",
-                table: "ExpenseRequest",
+                table: "ExpenditureDemand",
                 column: "ExpenseId");
         }
 
@@ -181,7 +181,7 @@ namespace EPS.Data.Migrations
                 schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "ExpenseRequest",
+                name: "ExpenditureDemand",
                 schema: "dbo");
 
             migrationBuilder.DropTable(

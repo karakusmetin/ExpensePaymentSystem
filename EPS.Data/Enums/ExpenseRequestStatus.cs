@@ -1,6 +1,6 @@
 ﻿namespace EPS.Data.Enums
 {
-	public enum ExpenseRequestStatus
+	public enum ExpenditureDemandStatus
 	{
 		Pending,
 		Approved,

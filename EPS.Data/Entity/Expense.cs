@@ -16,6 +16,7 @@ namespace EPS.Data.Entity
         public virtual ExpenseCategory ExpenseCategory { get; set; }
         
 		
+		public string Title { get; set; }
 		public decimal Amount { get; set; }
 		public string Location { get; set; }
 		public string Description { get; set; }
@@ -24,7 +25,7 @@ namespace EPS.Data.Entity
 
 
 		
-		public ExpenseRequestStatus IsApproved { get; set; } // Yönetici tarafından onaylanıp onaylanmadığı
+		public ExpenditureDemandStatus IsApproved { get; set; } // Yönetici tarafından onaylanıp onaylanmadığı
 		public string RejectionReason { get; set; } // Reddedilme durumunda nedeni
 		public DateTime? ApprovalDate { get; set; } // Onay tarihi, eğer onaylandıysa
 	}
@@ -40,6 +41,7 @@ namespace EPS.Data.Entity
 
 			builder.Property(x => x.EmployeeId).IsRequired(true);
 			builder.Property(x => x.ExpenseCategoryId).IsRequired(true);
+			builder.Property(x => x.Title).IsRequired(true).HasMaxLength(15);
 			builder.Property(x => x.Amount).IsRequired(true).HasPrecision(18,4);
 			builder.Property(x => x.Location).IsRequired(true).HasMaxLength(25);
 			builder.Property(x => x.Description).IsRequired(true).HasMaxLength(300);
