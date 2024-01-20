@@ -27,7 +27,7 @@ namespace EPS.Business.Query
 		public async Task<ApiResponse<List<AdminResponse>>> Handle(GetAllAdminQuery request, CancellationToken cancellationToken)
 		{
 
-			var adminlist = await dbContext.Set<Admin>().OrderBy(x => x.IsActive).ToListAsync(cancellationToken);
+			var adminlist = await dbContext.Set<Admin>().OrderByDescending(x => x.IsActive).ToListAsync(cancellationToken);
 			
 			var mappedList = mapper.Map<List<Admin>, List<AdminResponse>>(adminlist);
 			return new ApiResponse<List<AdminResponse>>(mappedList);

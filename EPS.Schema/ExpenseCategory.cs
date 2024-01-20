@@ -9,6 +9,8 @@ namespace EPS.Schema
 
 	public class ExpenseCategoryResponse : BaseResponse
 	{
+		public int Id { get; set; }
 		public string CategoryName { get; set; }
+		public DateTime InsertDate { get; set; }
 	}
 }
