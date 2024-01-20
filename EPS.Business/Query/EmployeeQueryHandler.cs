@@ -26,7 +26,7 @@ namespace EPS.Business.Query
 		public async Task<ApiResponse<List<EmployeeResponse>>> Handle(GetAllEmployeeQuery request, CancellationToken cancellationToken)
 		{
 
-			var Employeelist = await dbContext.Set<Employee>().OrderBy(x => x.IsActive).ToListAsync(cancellationToken);
+			var Employeelist = await dbContext.Set<Employee>().OrderByDescending(x => x.IsActive).ToListAsync(cancellationToken);
 
 			var mappedList = mapper.Map<List<Employee>, List<EmployeeResponse>>(Employeelist);
 			return new ApiResponse<List<EmployeeResponse>>(mappedList);
