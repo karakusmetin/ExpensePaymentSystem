@@ -67,6 +67,15 @@ namespace EPS.Api.Controlles
 			return result;
 		}
 
+		[HttpPut("admin/{id}")]
+
+		public async Task<ApiResponse> PutAdmin(int id, [FromBody] ExpenditureDemandAdminRequest Account)
+		{
+			var operation = new AdminUpdateExpenditureDemandCommand(id, Account);
+			var result = await mediator.Send(operation);
+			return result;
+		}
+
 		[HttpDelete("{id}")]
 
 		public async Task<ApiResponse> Delete(int id)
