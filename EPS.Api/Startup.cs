@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using ESP.Business.Mapper;
+using VbApi.Middleware;
 
 namespace EPS.Api
 {
@@ -53,6 +54,7 @@ namespace EPS.Api
 				app.UseSwagger();
 				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EPS.Api v1"));
 			}
+			app.UseMiddleware<ErrorHandlerMiddleware>();
 
 			app.UseHttpsRedirection();
 
