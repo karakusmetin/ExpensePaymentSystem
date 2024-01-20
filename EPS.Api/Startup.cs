@@ -11,6 +11,8 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using ESP.Business.Mapper;
 using VbApi.Middleware;
+using FluentValidation.AspNetCore;
+using EPS.Business.Validator;
 
 namespace EPS.Api
 {
@@ -35,10 +37,17 @@ namespace EPS.Api
 			services.AddSingleton(mapperConfig.CreateMapper());
 
 			services.AddControllers();
+			
 			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "EPS.Api", Version = "v1" });
 			});
+
+			services.AddControllers().AddFluentValidation(x =>
+			{
+				x.RegisterValidatorsFromAssemblyContaining<AdminRequestValidator>();
+			});
+
 			services.AddEndpointsApiExplorer();
 
 			services.AddResponseCaching();

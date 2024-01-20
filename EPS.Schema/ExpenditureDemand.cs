@@ -15,7 +15,7 @@ namespace EPS.Schema
 	public class ExpenditureDemandAdminRequest : BaseRequest
 	{
 		public int Id { get; set; }
-		public ExpenditureDemandStatus IsApproved { get; set; } // Yönetici tarafından onaylanıp onaylanmadığı
+		public string IsApproved { get; set; } // Yönetici tarafından onaylanıp onaylanmadığı
 		public string? RejectionReason { get; set; } // Reddedilme durumunda nedeni
 		public bool IsActive { get; set; }
 	}

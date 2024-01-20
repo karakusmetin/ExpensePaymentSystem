@@ -24,15 +24,23 @@ namespace EPS.Business.Command
 		}
 		public async Task<ApiResponse<ExpenseResponse>> Handle(CreateExpenseCommand request, CancellationToken cancellationToken)
 		{
+			var employee = await dbContext.Set<Employee>().Where(x => x.Id == request.Model.EmployeeId)
+			.FirstOrDefaultAsync(cancellationToken);
+
 			var checkExpense = await dbContext.Set<Expense>().Where(x => x.Equals(request.Model))
 			.FirstOrDefaultAsync(cancellationToken);
+
 			if (checkExpense != null)
-			{
 				return new ApiResponse<ExpenseResponse>("Expense is already exist.Check expense list!");
-			}
+
+			if (employee == null)
+				return new ApiResponse<ExpenseResponse>("Employee doesnt exist");
+
 			var entity = mapper.Map<ExpenseRequest, Expense>(request.Model);
 			entity.InsertDate = DateTime.UtcNow;
 			entity.UpdateDate = DateTime.UtcNow;
+			entity.ApprovalDate = DateTime.UtcNow;
+			entity.SubmissionDate = DateTime.UtcNow;
 
 
 			var entityResult = await dbContext.AddAsync(entity, cancellationToken);
@@ -71,7 +79,7 @@ namespace EPS.Business.Command
 				return new ApiResponse("Record not found");
 			}
 			dbExpense.IsActive = false;
-			dbExpense.UpdateDate= DateTime.UtcNow;
+			dbExpense.UpdateDate = DateTime.UtcNow;
 			await dbContext.SaveChangesAsync(cancellationToken);
 			return new ApiResponse();
 		}

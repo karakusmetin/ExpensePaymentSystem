@@ -29,6 +29,10 @@ public class MapperConfig : Profile
 		CreateMap<ExpenseCategory, ExpenseCategoryResponse>();
 		
 		CreateMap<ExpenditureDemand, Expense>();
+		
+		CreateMap<ExpenditureDemandAdminRequest, ExpenditureDemand>()
+			.ForMember(dest => dest.IsApproved,
+				src => src.MapFrom(x => x.IsApproved));
 
 		CreateMap<ExpenditureDemandRequest, ExpenditureDemand>();
 		CreateMap<ExpenditureDemand, ExpenditureDemandResponse>()

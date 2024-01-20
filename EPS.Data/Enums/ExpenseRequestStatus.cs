@@ -2,9 +2,9 @@
 {
 	public enum ExpenditureDemandStatus
 	{
-		Pending,
-		Approved,
-		Rejected
+		pending,
+		approved,
+		rejected
 	}
 
 }

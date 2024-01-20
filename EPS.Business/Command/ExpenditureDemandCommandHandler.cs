@@ -30,13 +30,17 @@ namespace EPS.Business.Command
 		public async Task<ApiResponse<ExpenditureDemandResponse>> Handle(CreateExpenditureDemandCommand request, CancellationToken cancellationToken)
 		{
 			//var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
+			var checkCategory = dbContext.Set<ExpenseCategory>().Where(x => x.CategoryName == request.Model.ExpenseCategory)
+				.FirstOrDefaultAsync(cancellationToken);
+			
 			var checkExpenditureDemand = await dbContext.Set<ExpenditureDemand>().Where(x => x.Equals(request.Model))
 			.FirstOrDefaultAsync(cancellationToken);
 			if (checkExpenditureDemand != null)
-			{
 				return new ApiResponse<ExpenditureDemandResponse>("This Expense Request is already exist");
-			}
+			
+			if(checkCategory == null)
+				return new ApiResponse<ExpenditureDemandResponse>("This Category not have");
+			
 			var entity = mapper.Map<ExpenditureDemandRequest, ExpenditureDemand>(request.Model);
 			entity.SubmissionDate = DateTime.UtcNow;
 			entity.InsertDate = DateTime.UtcNow;
@@ -77,7 +81,7 @@ namespace EPS.Business.Command
 			}
 
 			var entity = mapper.Map<ExpenditureDemandAdminRequest, ExpenditureDemand>(request.Model);
-			if (entity.IsApproved == ExpenditureDemandStatus.Pending)
+			if (entity.IsApproved == ExpenditureDemandStatus.pending)
 			{
 				entity.UpdateDate = DateTime.UtcNow;
 				await dbContext.SaveChangesAsync(cancellationToken);

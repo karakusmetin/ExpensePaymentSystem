@@ -45,7 +45,7 @@ namespace EPS.Data.Entity
 			builder.Property(x => x.Location).IsRequired(true).HasMaxLength(25);
 			builder.Property(x => x.Description).IsRequired(true).HasMaxLength(300);
 			builder.Property(x => x.DocumentUrl).IsRequired(false);
-			builder.Property(x => x.IsApproved).IsRequired(true).HasDefaultValue(value: ExpenditureDemandStatus.Pending);
+			builder.Property(x => x.IsApproved).IsRequired(true).HasDefaultValue(value: ExpenditureDemandStatus.pending);
 			builder.Property(x => x.SubmissionDate).IsRequired(true);
 			
 		}
