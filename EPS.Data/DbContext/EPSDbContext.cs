@@ -1,5 +1,6 @@
 ﻿using EPS.Data.Entity;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace EPS.Data
 {
@@ -8,8 +9,8 @@ namespace EPS.Data
 		public EPSDbContext(DbContextOptions<EPSDbContext> options):base(options) 
 		{
 		}
-		
 
+		
 		public DbSet<Admin> Admins { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Expense> Expenses { get; set; }

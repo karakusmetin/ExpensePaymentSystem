@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "isOCSmCAOu4On6ZeFTU/7Pgeq8RoZfYpK3qfr1zHa8vb/BTNnwVYuvzz4qbfGQUpzR9ZLMla7+b7eAvmxaLsRw==",
+  "dgSpecHash": "3dbdblOWK5Wiz3/vsa5E9gK679fUl1HSBsqgNFiZntKSSpT+/UqF4YD6HxWHeMYtVJxs35AA5pSZ5RrVK9WSHA==",
   "success": true,
   "projectFilePath": "C:\\Users\\fener\\Desktop\\Expense-Payment-System\\EPS.Business\\EPS.Business.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fener\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\fener\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\fener\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\fener\\.nuget\\packages\\dapper\\2.1.28\\dapper.2.1.28.nupkg.sha512",
     "C:\\Users\\fener\\.nuget\\packages\\entityframework\\6.3.0\\entityframework.6.3.0.nupkg.sha512",
     "C:\\Users\\fener\\.nuget\\packages\\fluentvalidation\\9.5.2\\fluentvalidation.9.5.2.nupkg.sha512",
     "C:\\Users\\fener\\.nuget\\packages\\fluentvalidation.aspnetcore\\9.5.2\\fluentvalidation.aspnetcore.9.5.2.nupkg.sha512",
