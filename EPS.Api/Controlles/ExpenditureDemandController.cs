@@ -2,6 +2,7 @@
 using EPS.Schema;
 using ESP.Base.Response;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpGet]
+		[Authorize(Roles = "admin,employee")]
 
 		public async Task<ApiResponse<List<ExpenditureDemandResponse>>> Get()
 		{
@@ -29,6 +31,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpGet("{id}")]
+		[Authorize(Roles = "admin,employee")]
 
 		public async Task<ApiResponse<ExpenditureDemandResponse>> Get(int id)
 		{
@@ -38,6 +41,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpGet("ByParameters")]
+		[Authorize(Roles = "admin,employee")]
 
 		public async Task<ApiResponse<List<ExpenditureDemandResponse>>> GetByParameter(
 			[FromQuery] string? EmployeeFirstName,
@@ -50,6 +54,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpPost]
+		[Authorize(Roles = "admin,employee")]
 
 		public async Task<ApiResponse<ExpenditureDemandResponse>> Post([FromBody] ExpenditureDemandRequest Account)
 		{
@@ -59,6 +64,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpPut("{id}")]
+		[Authorize(Roles = "admin,employee")]
 
 		public async Task<ApiResponse> Put(int id, [FromBody] ExpenditureDemandRequest Account)
 		{
@@ -68,6 +74,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpPut("admin/{id}")]
+		[Authorize(Roles = "admin")]
 
 		public async Task<ApiResponse> PutAdmin(int id, [FromBody] ExpenditureDemandAdminRequest Account)
 		{
@@ -77,6 +84,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpDelete("{id}")]
+		[Authorize(Roles = "admin")]
 
 		public async Task<ApiResponse> Delete(int id)
 		{

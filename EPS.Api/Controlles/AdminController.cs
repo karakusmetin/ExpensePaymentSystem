@@ -21,8 +21,7 @@ namespace EPS.Api.Controlles
 		}
 		
 		[HttpGet]
-		[Authorize(Roles = "admin")]
-		[Authorize(Roles = "employee")]
+		[Authorize(Roles = "admin,employee")]
 		public async Task<ApiResponse<List<AdminResponse>>> Get()
 		{
 			var operation = new GetAllAdminQuery();
@@ -32,7 +31,6 @@ namespace EPS.Api.Controlles
 
 		[HttpGet("{id}")]
 		[Authorize(Roles = "admin")]
-
 		public async Task<ApiResponse<AdminResponse>> Get(int id)
 		{
 			var operation = new GetAdminByIdQuery(id);
@@ -53,7 +51,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpPost]
-		
+		[Authorize(Roles = "admin")]
 		public async Task<ApiResponse<AdminResponse>> Post([FromBody] AdminRequest Account)
 		{
 			var operation = new CreateAdminCommand(Account);

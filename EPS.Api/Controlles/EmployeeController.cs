@@ -21,7 +21,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpGet]
-		
+		[Authorize(Roles = "admin")]
 
 		public async Task<ApiResponse<List<EmployeeResponse>>> Get()
 		{
@@ -31,7 +31,8 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpGet("{id}")]
-		[Authorize(Roles = "admin")]
+		[Authorize(Roles = "admin,employee")]
+
 		public async Task<ApiResponse<EmployeeResponse>> Get(int id)
 		{
 			var operation = new GetEmployeeByIdQuery(id);
@@ -40,6 +41,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpGet("ByParameters")]
+		[Authorize(Roles = "admin")]
 
 		public async Task<ApiResponse<List<EmployeeResponse>>> GetByParameter(
 			[FromQuery] string? FirstName,
@@ -51,6 +53,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpPost]
+		[Authorize(Roles = "admin")]
 
 		public async Task<ApiResponse<EmployeeResponse>> Post([FromBody] EmployeeRequest Account)
 		{
@@ -60,6 +63,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpPut("{id}")]
+		[Authorize(Roles = "admin")]
 
 		public async Task<ApiResponse> Put(int id, [FromBody] EmployeeRequest Account)
 		{
@@ -69,6 +73,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpDelete("{id}")]
+		[Authorize(Roles = "admin")]
 
 		public async Task<ApiResponse> Delete(int id)
 		{

@@ -2,6 +2,7 @@
 using EPS.Schema;
 using ESP.Base.Response;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpGet]
+		[Authorize(Roles = "admin,employee")]
 
 		public async Task<ApiResponse<List<ExpenseCategoryResponse>>> Get()
 		{
@@ -30,6 +32,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpGet("{id}")]
+		[Authorize(Roles = "admin,employee")]
 
 		public async Task<ApiResponse<ExpenseCategoryResponse>> Get(int id)
 		{
@@ -39,6 +42,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpPost]
+		[Authorize(Roles = "admin")]
 
 		public async Task<ApiResponse<ExpenseCategoryResponse>> Post([FromBody] ExpenseCategoryRequest Account)
 		{
@@ -48,6 +52,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpPut("{id}")]
+		[Authorize(Roles = "admin")]
 
 		public async Task<ApiResponse> Put(int id, [FromBody] ExpenseCategoryRequest Account)
 		{
@@ -57,6 +62,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpDelete("{id}")]
+		[Authorize(Roles = "admin")]
 
 		public async Task<ApiResponse> Delete(int id)
 		{
