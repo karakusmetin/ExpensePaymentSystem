@@ -31,8 +31,9 @@ namespace EPS.Business.Command
 			{
 				return new ApiResponse<EmployeeResponse>($"{request.Model.UserName} is used by another Employee.");
 			}
+			request.Model.Password = Md5Extension.GetHash(request.Model.Password.Trim());
+
 			var entity = mapper.Map<EmployeeRequest, Employee>(request.Model);
-			entity.Password = Md5Extension.GetHash(request.Model.Password.Trim());
 			entity.InsertDate = DateTime.UtcNow.Date;
 			entity.UpdateDate = DateTime.UtcNow.Date;
 

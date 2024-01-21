@@ -15,7 +15,8 @@
           "FluentValidation.AspNetCore": "9.5.2",
           "FluentValidation.DependencyInjectionExtensions": "9.5.2",
           "MediatR": "12.0.0",
-          "MediatR.Extensions.Microsoft.DependencyInjection": "11.1.0"
+          "MediatR.Extensions.Microsoft.DependencyInjection": "11.1.0",
+          "Stripe.net": "43.11.0"
         },
         "runtime": {
           "EPS.Business.dll": {}
@@ -693,6 +694,18 @@
           "lib/netstandard1.3/Serilog.Sinks.RollingFile.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "3.3.0.0"
+          }
+        }
+      },
+      "Stripe.net/43.11.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.3",
+          "System.Configuration.ConfigurationManager": "6.0.1"
+        },
+        "runtime": {
+          "lib/net6.0/Stripe.net.dll": {
+            "assemblyVersion": "43.11.0.0",
+            "fileVersion": "43.11.0.0"
           }
         }
       },
@@ -1470,6 +1483,13 @@
       "sha512": "sha512-2lT5X1r3GH4P0bRWJfhA7etGl8Q2Ipw9AACvtAHWRUSpYZ42NGVyHoVs2ALBZ/cAkkS+tA4jl80Zie144eLQPg==",
       "path": "serilog.sinks.rollingfile/3.3.0",
       "hashPath": "serilog.sinks.rollingfile.3.3.0.nupkg.sha512"
+    },
+    "Stripe.net/43.11.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UQUBwiqC3AzLHNts6unZnSBEJK06VPnGiSIL8V0W8kn0MruQMFdi/8VmrVcdAwvlsxHQdSUAKKZfiCjGL4dSfQ==",
+      "path": "stripe.net/43.11.0",
+      "hashPath": "stripe.net.43.11.0.nupkg.sha512"
     },
     "System.CodeDom/4.6.0": {
       "type": "package",

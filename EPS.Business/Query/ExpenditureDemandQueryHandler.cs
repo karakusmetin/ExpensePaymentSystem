@@ -37,10 +37,14 @@ namespace EPS.Business.Query
 		{
 			var ExpenditureDemandEntity = await dbContext.Set<ExpenditureDemand>()
 			.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-
+			
 			if (ExpenditureDemandEntity == null)
 			{
 				return new ApiResponse<ExpenditureDemandResponse>("Record not found");
+			}
+			if (ExpenditureDemandEntity.EmployeeId != request.UserId)
+			{
+				return new ApiResponse<ExpenditureDemandResponse>("You cant check other employees request");
 			}
 
 			var mapped = mapper.Map<ExpenditureDemand, ExpenditureDemandResponse>(ExpenditureDemandEntity);

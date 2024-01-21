@@ -22,7 +22,7 @@ namespace EPS.Api.Controlles
 		}
 		
 		[HttpGet]
-		[Authorize(Roles = "admin,employee")]
+		[Authorize(Roles = "admin")]
 		public async Task<ApiResponse<List<AdminResponse>>> Get()
 		{
 			var operation = new GetAllAdminQuery();

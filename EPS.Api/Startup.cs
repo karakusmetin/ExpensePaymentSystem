@@ -18,6 +18,7 @@ using ESP.Base.TokenJwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System;
+using EPS.Business.Services;
 
 namespace EPS.Api
 {
@@ -60,7 +61,7 @@ namespace EPS.Api
 
 				var securityScheme = new OpenApiSecurityScheme
 				{
-					Name = "Vb Management for IT Company",
+					Name = "EPSApi Management for Company",
 					Description = "Enter JWT Bearer token **_only_**",
 					In = ParameterLocation.Header,
 					Type = SecuritySchemeType.Http,
@@ -103,6 +104,8 @@ namespace EPS.Api
 					ClockSkew = TimeSpan.FromMinutes(2)
 				};
 			});
+
+
 			services.AddAuthorization(options =>
 			{
 				// Policy tanýmlamalarý
@@ -110,6 +113,8 @@ namespace EPS.Api
 				options.AddPolicy("EmployeePolicy", policy => policy.RequireRole("employee"));
 			});
 
+
+			services.AddScoped<IPaymentService, PaymentService>();
 
 		}
 

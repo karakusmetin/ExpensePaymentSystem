@@ -86,7 +86,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpPut("admin/{id}")]
-		[Authorize(Roles = "admin")]
+		[Authorize(Roles = "admin,employee")]
 
 		public async Task<ApiResponse> PutAdmin(int id, [FromBody] ExpenditureDemandAdminRequest Account)
 		{

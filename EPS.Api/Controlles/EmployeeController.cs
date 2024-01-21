@@ -61,7 +61,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpPost]
-		[Authorize(Roles = "admin")]
+		
 
 		public async Task<ApiResponse<EmployeeResponse>> Post([FromBody] EmployeeRequest Account)
 		{

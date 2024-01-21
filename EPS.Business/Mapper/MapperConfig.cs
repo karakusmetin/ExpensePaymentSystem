@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using EPS.Data.Entity;
+using EPS.Data.Enums;
 using EPS.Schema;
+using System;
 
 namespace ESP.Business.Mapper;
 
@@ -29,12 +31,15 @@ public class MapperConfig : Profile
 		CreateMap<ExpenseCategory, ExpenseCategoryResponse>();
 		
 		CreateMap<ExpenditureDemand, Expense>();
-		
+
 		CreateMap<ExpenditureDemandAdminRequest, ExpenditureDemand>()
 			.ForMember(dest => dest.IsApproved,
-				src => src.MapFrom(x => x.IsApproved));
-
-		CreateMap<ExpenditureDemandRequest, ExpenditureDemand>();
+		opt => opt.MapFrom(src => GetMyEnumValue(src.IsApproved)));
+		
+		CreateMap<ExpenditureDemandRequest, ExpenditureDemand>()
+		.ForMember(dest => dest.ExpenseCategoryId,
+				src => src.MapFrom(x => x.ExpenseCategoryId));
+		
 		CreateMap<ExpenditureDemand, ExpenditureDemandResponse>()
 			.ForMember(dest => dest.EmployeeId,
 				src => src.MapFrom(x => x.EmployeeId))
@@ -45,5 +50,15 @@ public class MapperConfig : Profile
 			.ForMember(dest => dest.ExpenseCategory,
 				src => src.MapFrom(x => x.ExpenseCategory.CategoryName));
 
+	}
+
+	private static ExpenditureDemandStatus GetMyEnumValue(string enumString)
+	{
+		if (Enum.TryParse(enumString, out ExpenditureDemandStatus result))
+		{
+			return result;
+		}
+
+		return default(ExpenditureDemandStatus);
 	}
 }

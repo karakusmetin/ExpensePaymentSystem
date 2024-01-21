@@ -61,7 +61,7 @@ namespace EPS.Business.Command
 			{
 				Email = user.Email,
 				Token = token,
-				ExpireDate = DateTime.UtcNow.Date.AddMinutes(jwtConfig.AccessTokenExpiration)
+				ExpireDate = DateTime.UtcNow.AddHours(24)
 			});
 		}
 
@@ -86,9 +86,9 @@ namespace EPS.Business.Command
 
 			var jwtToken = new JwtSecurityToken(
 				jwtConfig.Issuer,
-				jwtConfig.Audience,
+				jwtConfig.Audience,	
 				claims,
-				expires: DateTime.UtcNow.Date.AddMinutes(jwtConfig.AccessTokenExpiration),
+				expires: DateTime.UtcNow.AddMinutes(jwtConfig.AccessTokenExpiration),
 				signingCredentials: new SigningCredentials(new SymmetricSecurityKey(secret), SecurityAlgorithms.HmacSha256Signature)
 			);
 

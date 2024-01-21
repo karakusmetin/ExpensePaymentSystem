@@ -7,8 +7,6 @@ using MediatR;
 using ESP.Base.Response;
 using Microsoft.EntityFrameworkCore;
 using ESP.Base.EncriptionExtension;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
 
 namespace EPS.Business.Command
 {

@@ -298,3 +298,4 @@ C:\Users\fener\Desktop\Expense-Payment-System\EPS.Api\bin\Debug\net7.0\EPS.Schem
 C:\Users\fener\Desktop\Expense-Payment-System\EPS.Api\bin\Debug\net7.0\EPS.Business.pdb
 C:\Users\fener\Desktop\Expense-Payment-System\EPS.Api\bin\Debug\net7.0\EPS.Schema.pdb
 C:\Users\fener\Desktop\Expense-Payment-System\EPS.Api\bin\Debug\net7.0\Dapper.dll
+C:\Users\fener\Desktop\Expense-Payment-System\EPS.Api\bin\Debug\net7.0\Stripe.net.dll

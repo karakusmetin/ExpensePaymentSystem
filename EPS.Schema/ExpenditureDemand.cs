@@ -6,7 +6,7 @@ namespace EPS.Schema
 	public class ExpenditureDemandRequest : BaseRequest
 	{
 		public string Title { get; set; }
-		public string ExpenseCategory { get; set; }
+		public int ExpenseCategoryId { get; set; }
 		public decimal Amount { get; set; }
 		public string Description { get; set; }
 		public string Location { get; set; }
@@ -17,15 +17,15 @@ namespace EPS.Schema
 		public int Id { get; set; }
 		public string IsApproved { get; set; } // Yönetici tarafından onaylanıp onaylanmadığı
 		public string? RejectionReason { get; set; } // Reddedilme durumunda nedeni
-		public bool IsActive { get; set; }
+		public string IsActive { get; set; }
 	}
 
 	public class ExpenditureDemandResponse : BaseResponse
 	{
 		public int Id { get; set; }
 		public int EmployeeId { get; set; } // Personel ID'si
-		public int EmployeeFirstName { get; set; } // Personel İsmi
-		public int EmployeeLastName { get; set; } // Personel Soyismi
+		public string EmployeeFirstName { get; set; } // Personel İsmi
+		public string EmployeeLastName { get; set; } // Personel Soyismi
 		public string Title { get; set; }
 		public string ExpenseCategory { get; set; }
 		public decimal Amount { get; set; }

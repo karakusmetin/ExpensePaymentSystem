@@ -13,10 +13,7 @@ namespace EPS.Business.Validator
 				.MaximumLength(15)
 				.WithMessage("Title cannot be empty and must be less than 15 characters.");
 			
-			RuleFor(x => x.ExpenseCategory)
-				.NotEmpty().MaximumLength(50)
-				.WithMessage("ExpenseCategory cannot be empty and must be less than 50 characters.");
-			
+		
 			RuleFor(x => x.Amount)
 				.GreaterThan(0)
 				.WithMessage("Amount must be greater than 0.");

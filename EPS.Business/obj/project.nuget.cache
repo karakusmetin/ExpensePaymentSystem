@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "3dbdblOWK5Wiz3/vsa5E9gK679fUl1HSBsqgNFiZntKSSpT+/UqF4YD6HxWHeMYtVJxs35AA5pSZ5RrVK9WSHA==",
+  "dgSpecHash": "3fddH4tplGiplrWXWbpbk6DKai2a+aIhu5cHGAhqBzC2KjO04lm4tk7fKSfjv2mLNWGb7CrwXveh8Pd2RTsJIg==",
   "success": true,
   "projectFilePath": "C:\\Users\\fener\\Desktop\\Expense-Payment-System\\EPS.Business\\EPS.Business.csproj",
   "expectedPackageFiles": [
@@ -71,6 +71,7 @@
     "C:\\Users\\fener\\.nuget\\packages\\serilog.sinks.debug\\2.0.0\\serilog.sinks.debug.2.0.0.nupkg.sha512",
     "C:\\Users\\fener\\.nuget\\packages\\serilog.sinks.file\\5.0.0\\serilog.sinks.file.5.0.0.nupkg.sha512",
     "C:\\Users\\fener\\.nuget\\packages\\serilog.sinks.rollingfile\\3.3.0\\serilog.sinks.rollingfile.3.3.0.nupkg.sha512",
+    "C:\\Users\\fener\\.nuget\\packages\\stripe.net\\43.11.0\\stripe.net.43.11.0.nupkg.sha512",
     "C:\\Users\\fener\\.nuget\\packages\\system.codedom\\4.6.0\\system.codedom.4.6.0.nupkg.sha512",
     "C:\\Users\\fener\\.nuget\\packages\\system.componentmodel.annotations\\4.6.0\\system.componentmodel.annotations.4.6.0.nupkg.sha512",
     "C:\\Users\\fener\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.1\\system.configuration.configurationmanager.6.0.1.nupkg.sha512",
