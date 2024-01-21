@@ -32,6 +32,9 @@ namespace EPS.Business.Command
 				return new ApiResponse<ExpenseCategoryResponse>($"{request.Model.CategoryName} is already exist");
 			}
 			var entity = mapper.Map<ExpenseCategoryRequest, ExpenseCategory>(request.Model);
+			entity.UpdateDate = DateTime.Now;
+			entity.InsertDate = DateTime.Now;
+			entity.UpdateUserId = request.UserId;
 
 			var entityResult = await dbContext.AddAsync(entity, cancellationToken);
 			await dbContext.SaveChangesAsync(cancellationToken);
@@ -50,6 +53,7 @@ namespace EPS.Business.Command
 			}
 			dbExpenseCategory.CategoryName = request.Model.CategoryName;
 			dbExpenseCategory.UpdateDate= DateTime.UtcNow;
+			dbExpenseCategory.UpdateUserId = request.UserId;
 
 			await dbContext.SaveChangesAsync(cancellationToken);
 			return new ApiResponse();
@@ -65,6 +69,7 @@ namespace EPS.Business.Command
 			}
 			dbExpenseCategory.IsActive = false;
 			dbExpenseCategory.UpdateDate = DateTime.UtcNow;
+			dbExpenseCategory.UpdateUserId = request.UserId;
 			await dbContext.SaveChangesAsync(cancellationToken);
 			return new ApiResponse();
 		}

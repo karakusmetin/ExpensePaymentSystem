@@ -21,7 +21,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpGet]
-		[Authorize(Roles = "admin,employee")]
+		[Authorize(Roles = "admin")]
 
 		public async Task<ApiResponse<List<ExpenditureDemandResponse>>> Get()
 		{
@@ -35,7 +35,10 @@ namespace EPS.Api.Controlles
 
 		public async Task<ApiResponse<ExpenditureDemandResponse>> Get(int id)
 		{
-			var operation = new GetExpenditureDemandByIdQuery(id);
+			var stringuserId = HttpContext.User.FindFirst("Id")?.Value;
+			int.TryParse(stringuserId, out int userId);
+
+			var operation = new GetExpenditureDemandByIdQuery(id, userId);
 			var result = await mediator.Send(operation);
 			return result;
 		}
@@ -48,7 +51,10 @@ namespace EPS.Api.Controlles
 			[FromQuery] string? EmployeeLastName,
 			[FromQuery] string? Title)
 		{
-			var operation = new GetExpenditureDemandByParameterQuery(EmployeeFirstName, EmployeeLastName, Title);
+			var stringuserId = HttpContext.User.FindFirst("Id")?.Value;
+			int.TryParse(stringuserId, out int userId);
+
+			var operation = new GetExpenditureDemandByParameterQuery(EmployeeFirstName, EmployeeLastName, Title, userId);
 			var result = await mediator.Send(operation);
 			return result;
 		}
@@ -58,7 +64,10 @@ namespace EPS.Api.Controlles
 
 		public async Task<ApiResponse<ExpenditureDemandResponse>> Post([FromBody] ExpenditureDemandRequest Account)
 		{
-			var operation = new CreateExpenditureDemandCommand(Account);
+			var stringuserId = HttpContext.User.FindFirst("Id")?.Value;
+			int.TryParse(stringuserId, out int userId);
+
+			var operation = new CreateExpenditureDemandCommand(Account, userId);
 			var result = await mediator.Send(operation);
 			return result;
 		}
@@ -68,7 +77,10 @@ namespace EPS.Api.Controlles
 
 		public async Task<ApiResponse> Put(int id, [FromBody] ExpenditureDemandRequest Account)
 		{
-			var operation = new UpdateExpenditureDemandCommand(id, Account);
+			var stringuserId = HttpContext.User.FindFirst("Id")?.Value;
+			int.TryParse(stringuserId, out int userId);
+
+			var operation = new UpdateExpenditureDemandCommand(id, Account, userId);
 			var result = await mediator.Send(operation);
 			return result;
 		}
@@ -78,7 +90,10 @@ namespace EPS.Api.Controlles
 
 		public async Task<ApiResponse> PutAdmin(int id, [FromBody] ExpenditureDemandAdminRequest Account)
 		{
-			var operation = new AdminUpdateExpenditureDemandCommand(id, Account);
+			var stringuserId = HttpContext.User.FindFirst("Id")?.Value;
+			int.TryParse(stringuserId, out int userId);
+
+			var operation = new AdminUpdateExpenditureDemandCommand(id, Account,userId);
 			var result = await mediator.Send(operation);
 			return result;
 		}
@@ -88,7 +103,10 @@ namespace EPS.Api.Controlles
 
 		public async Task<ApiResponse> Delete(int id)
 		{
-			var operation = new DeleteExpenditureDemandCommand(id);
+			var stringuserId = HttpContext.User.FindFirst("Id")?.Value;
+			int.TryParse(stringuserId, out int userId);
+
+			var operation = new DeleteExpenditureDemandCommand(id,userId);
 			var result = await mediator.Send(operation);
 			return result;
 		}

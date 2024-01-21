@@ -41,6 +41,8 @@ namespace EPS.Business.Query
 			{
 				return new ApiResponse<ExpenseResponse>("Record not found");
 			}
+			if(ExpenseEntity.Employee.Id==request.UserId)
+				return new ApiResponse<ExpenseResponse>("You can access just your request!");
 
 			var mapped = mapper.Map<Expense, ExpenseResponse>(ExpenseEntity);
 			return new ApiResponse<ExpenseResponse>(mapped);

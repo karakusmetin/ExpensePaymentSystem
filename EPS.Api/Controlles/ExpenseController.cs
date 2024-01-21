@@ -35,7 +35,10 @@ namespace EPS.Api.Controlles
 
 		public async Task<ApiResponse<ExpenseResponse>> Get(int id)
 		{
-			var operation = new GetExpenseByIdQuery(id);
+			var stringuserId = HttpContext.User.FindFirst("Id")?.Value;
+			int.TryParse(stringuserId, out int userId);
+
+			var operation = new GetExpenseByIdQuery(id,userId);
 			var result = await mediator.Send(operation);
 			return result;
 		}
@@ -57,7 +60,10 @@ namespace EPS.Api.Controlles
 
 		public async Task<ApiResponse<ExpenseResponse>> Post([FromBody] ExpenseRequest Account)
 		{
-			var operation = new CreateExpenseCommand(Account);
+			var stringuserId = HttpContext.User.FindFirst("Id")?.Value;
+			int.TryParse(stringuserId, out int userId);
+
+			var operation = new CreateExpenseCommand(Account, userId);
 			var result = await mediator.Send(operation);
 			return result;
 		}
@@ -67,7 +73,10 @@ namespace EPS.Api.Controlles
 
 		public async Task<ApiResponse> Put(int id, [FromBody] ExpenseRequest Account)
 		{
-			var operation = new UpdateExpenseCommand(id, Account);
+			var stringuserId = HttpContext.User.FindFirst("Id")?.Value;
+			int.TryParse(stringuserId, out int userId);
+
+			var operation = new UpdateExpenseCommand(id, Account, userId);
 			var result = await mediator.Send(operation);
 			return result;
 		}
@@ -77,7 +86,10 @@ namespace EPS.Api.Controlles
 
 		public async Task<ApiResponse> Delete(int id)
 		{
-			var operation = new DeleteExpenseCommand(id);
+			var stringuserId = HttpContext.User.FindFirst("Id")?.Value;
+			int.TryParse(stringuserId, out int userId);
+
+			var operation = new DeleteExpenseCommand(id, userId);
 			var result = await mediator.Send(operation);
 			return result;
 		}

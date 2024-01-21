@@ -10,9 +10,10 @@ namespace EPS.Data.Entity
 	{
 		public string Role { get; set; } = "employee";
 		public int ExpensRequestCount { get; set; }
+		public int? UpdateUserId { get; set; }
 
 
-        public virtual List<Expense> Expenses { get; set; }
+		public virtual List<Expense> Expenses { get; set; }
     }
 
 	public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>

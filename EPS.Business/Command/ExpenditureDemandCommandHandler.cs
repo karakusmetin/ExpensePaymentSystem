@@ -32,20 +32,28 @@ namespace EPS.Business.Command
 			//var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 			var checkCategory = dbContext.Set<ExpenseCategory>().Where(x => x.CategoryName == request.Model.ExpenseCategory)
 				.FirstOrDefaultAsync(cancellationToken);
-			
-			var checkExpenditureDemand = await dbContext.Set<ExpenditureDemand>().Where(x => x.Equals(request.Model))
+
+			var checkUser = dbContext.Set<Employee>().Where(x => x.Id == request.UserId)
+				.FirstOrDefaultAsync(cancellationToken);
+
+			var checkExpenditureDemand = await dbContext.Set<ExpenditureDemand>().Include(x => x.Employee.Id == request.UserId).Where(x => x.Equals(request.Model))
 			.FirstOrDefaultAsync(cancellationToken);
+
 			if (checkExpenditureDemand != null)
 				return new ApiResponse<ExpenditureDemandResponse>("This Expense Request is already exist");
-			
-			if(checkCategory == null)
+
+			if (checkCategory == null)
 				return new ApiResponse<ExpenditureDemandResponse>("This Category not have");
-			
+			if (checkUser == null)
+				return new ApiResponse<ExpenditureDemandResponse>("You are not in the Employee!");
+
 			var entity = mapper.Map<ExpenditureDemandRequest, ExpenditureDemand>(request.Model);
 			entity.SubmissionDate = DateTime.UtcNow;
 			entity.InsertDate = DateTime.UtcNow;
 			entity.UpdateDate = DateTime.UtcNow;
-			//entity.UpdateUserId = userId;
+			entity.UpdateUserId = request.UserId;
+			entity.EmployeeId = request.UserId;
+			entity.Employee.ExpensRequestCount += 1;
 
 			var entityResult = await dbContext.AddAsync(entity, cancellationToken);
 			await dbContext.SaveChangesAsync(cancellationToken);
@@ -62,9 +70,12 @@ namespace EPS.Business.Command
 			{
 				return new ApiResponse("Record not found");
 			}
+			if (dbExpenditureDemand.EmployeeId == request.UserId)
+				return new ApiResponse("You cant access anathor user request");
 
 			var entity = mapper.Map<ExpenditureDemandRequest, ExpenditureDemand>(request.Model);
 			entity.UpdateDate = DateTime.UtcNow;
+			entity.UpdateUserId = request.UserId;
 
 
 			await dbContext.SaveChangesAsync(cancellationToken);
@@ -91,12 +102,15 @@ namespace EPS.Business.Command
 			{
 				var ExpenseEntity = mapper.Map<ExpenditureDemand, Expense>(entity);
 				ExpenseEntity.ApprovalDate = DateTime.UtcNow;
-				
-				
+				ExpenseEntity.UpdateDate = DateTime.UtcNow;
+				ExpenseEntity.InsertDate = DateTime.UtcNow;
+				ExpenseEntity.UpdateUserId = request.UserId;
+
+
 				var entityResult = await dbContext.AddAsync(ExpenseEntity, cancellationToken);
-				
+
 				await dbContext.SaveChangesAsync(cancellationToken);
-				return new ApiResponse();	
+				return new ApiResponse();
 			}
 		}
 
@@ -109,6 +123,7 @@ namespace EPS.Business.Command
 				return new ApiResponse("Record not found");
 			}
 			dbExpenditureDemand.IsActive = false;
+			dbExpenditureDemand.UpdateUserId = request.UserId;
 			dbExpenditureDemand.UpdateDate = DateTime.UtcNow;
 			await dbContext.SaveChangesAsync(cancellationToken);
 			return new ApiResponse();

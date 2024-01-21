@@ -5,9 +5,9 @@ using MediatR;
 namespace EPS.Business.Cqrs
 
 {
-	public record CreateExpenseCategoryCommand(ExpenseCategoryRequest Model) : IRequest<ApiResponse<ExpenseCategoryResponse>>;
-	public record UpdateExpenseCategoryCommand(int Id, ExpenseCategoryRequest Model) : IRequest<ApiResponse>;
-	public record DeleteExpenseCategoryCommand(int Id) : IRequest<ApiResponse>;
+	public record CreateExpenseCategoryCommand(ExpenseCategoryRequest Model, int UserId) : IRequest<ApiResponse<ExpenseCategoryResponse>>;
+	public record UpdateExpenseCategoryCommand(int Id, ExpenseCategoryRequest Model, int UserId) : IRequest<ApiResponse>;
+	public record DeleteExpenseCategoryCommand(int Id, int UserId) : IRequest<ApiResponse>;
 
 
 	public record GetAllExpenseCategoryQuery() : IRequest<ApiResponse<List<ExpenseCategoryResponse>>>;

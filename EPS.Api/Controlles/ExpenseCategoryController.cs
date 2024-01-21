@@ -46,7 +46,10 @@ namespace EPS.Api.Controlles
 
 		public async Task<ApiResponse<ExpenseCategoryResponse>> Post([FromBody] ExpenseCategoryRequest Account)
 		{
-			var operation = new CreateExpenseCategoryCommand(Account);
+			var stringuserId = HttpContext.User.FindFirst("Id")?.Value;
+			int.TryParse(stringuserId, out int userId);
+
+			var operation = new CreateExpenseCategoryCommand(Account, userId);
 			var result = await mediator.Send(operation);
 			return result;
 		}
@@ -56,7 +59,10 @@ namespace EPS.Api.Controlles
 
 		public async Task<ApiResponse> Put(int id, [FromBody] ExpenseCategoryRequest Account)
 		{
-			var operation = new UpdateExpenseCategoryCommand(id, Account);
+			var stringuserId = HttpContext.User.FindFirst("Id")?.Value;
+			int.TryParse(stringuserId, out int userId);
+
+			var operation = new UpdateExpenseCategoryCommand(id, Account, userId);
 			var result = await mediator.Send(operation);
 			return result;
 		}
@@ -66,7 +72,10 @@ namespace EPS.Api.Controlles
 
 		public async Task<ApiResponse> Delete(int id)
 		{
-			var operation = new DeleteExpenseCategoryCommand(id);
+			var stringuserId = HttpContext.User.FindFirst("Id")?.Value;
+			int.TryParse(stringuserId, out int userId);
+
+			var operation = new DeleteExpenseCategoryCommand(id, userId);
 			var result = await mediator.Send(operation);
 			return result;
 		}

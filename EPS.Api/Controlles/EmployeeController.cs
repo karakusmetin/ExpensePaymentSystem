@@ -4,6 +4,7 @@ using ESP.Base.Response;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -35,6 +36,13 @@ namespace EPS.Api.Controlles
 
 		public async Task<ApiResponse<EmployeeResponse>> Get(int id)
 		{
+			var stringuserId = HttpContext.User.FindFirst("Id")?.Value;
+			int.TryParse(stringuserId, out int userId);
+			
+			if (userId == id)
+			{
+				return new ApiResponse<EmployeeResponse>("User is not authenticated.");
+			}
 			var operation = new GetEmployeeByIdQuery(id);
 			var result = await mediator.Send(operation);
 			return result;
@@ -63,10 +71,15 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpPut("{id}")]
-		[Authorize(Roles = "admin")]
+		[Authorize(Roles = "admin,employee")]
 
 		public async Task<ApiResponse> Put(int id, [FromBody] EmployeeRequest Account)
 		{
+			var userId = HttpContext.User.FindFirst("Id")?.Value;
+			if (userId != null)
+			{
+				return new ApiResponse("User is not authenticated.");
+			}
 			var operation = new UpdateEmployeeCommand(id, Account);
 			var result = await mediator.Send(operation);
 			return result;

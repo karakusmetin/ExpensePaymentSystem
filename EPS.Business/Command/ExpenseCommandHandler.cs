@@ -41,6 +41,7 @@ namespace EPS.Business.Command
 			entity.UpdateDate = DateTime.UtcNow;
 			entity.ApprovalDate = DateTime.UtcNow;
 			entity.SubmissionDate = DateTime.UtcNow;
+			entity.UpdateUserId = request.UserId;
 
 
 			var entityResult = await dbContext.AddAsync(entity, cancellationToken);
@@ -65,6 +66,7 @@ namespace EPS.Business.Command
 			}
 			mapper.Map(request.Model, dbExpense);
 			dbExpense.UpdateDate = DateTime.UtcNow;
+			dbExpense.UpdateUserId = request.UserId;
 
 			await dbContext.SaveChangesAsync(cancellationToken);
 			return new ApiResponse();
@@ -79,6 +81,7 @@ namespace EPS.Business.Command
 				return new ApiResponse("Record not found");
 			}
 			dbExpense.IsActive = false;
+			dbExpense.UpdateUserId= request.UserId;
 			dbExpense.UpdateDate = DateTime.UtcNow;
 			await dbContext.SaveChangesAsync(cancellationToken);
 			return new ApiResponse();
