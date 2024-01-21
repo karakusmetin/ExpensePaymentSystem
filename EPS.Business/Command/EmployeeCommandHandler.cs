@@ -3,6 +3,7 @@ using EPS.Business.Cqrs;
 using EPS.Data;
 using EPS.Data.Entity;
 using EPS.Schema;
+using ESP.Base.EncriptionExtension;
 using ESP.Base.Response;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,7 @@ namespace EPS.Business.Command
 				return new ApiResponse<EmployeeResponse>($"{request.Model.UserName} is used by another Employee.");
 			}
 			var entity = mapper.Map<EmployeeRequest, Employee>(request.Model);
+			entity.Password = Md5Extension.GetHash(request.Model.Password.Trim());
 			entity.InsertDate = DateTime.Now;
 			entity.UpdateDate = DateTime.Now;
 
@@ -53,6 +55,7 @@ namespace EPS.Business.Command
 			dbEmployee.LastName = request.Model.LastName;
 			dbEmployee.Email = request.Model.Email;
 			dbEmployee.UpdateDate = DateTime.Now;
+			dbEmployee.Password = Md5Extension.GetHash(request.Model.Password.Trim());
 
 			await dbContext.SaveChangesAsync(cancellationToken);
 			return new ApiResponse();

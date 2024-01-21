@@ -61,6 +61,7 @@ namespace EPS.Business.Command
 			dbAdmin.LastName = request.Model.LastName;
 			dbAdmin.Email = request.Model.Email;
 			dbAdmin.UpdateDate = DateTime.Now;
+			dbAdmin.Password = Md5Extension.GetHash(request.Model.Password.Trim());
 
 			await dbContext.SaveChangesAsync(cancellationToken);
 			return new ApiResponse();

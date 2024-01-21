@@ -6,8 +6,6 @@ using EPS.Schema;
 using ESP.Base.Response;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
 using EPS.Data.Enums;
 
 namespace EPS.Business.Command
@@ -95,6 +93,7 @@ namespace EPS.Business.Command
 			if (entity.IsApproved == ExpenditureDemandStatus.pending)
 			{
 				entity.UpdateDate = DateTime.UtcNow;
+				entity.UpdateUserId= request.UserId;
 				await dbContext.SaveChangesAsync(cancellationToken);
 				return new ApiResponse();
 			}
@@ -105,6 +104,9 @@ namespace EPS.Business.Command
 				ExpenseEntity.UpdateDate = DateTime.UtcNow;
 				ExpenseEntity.InsertDate = DateTime.UtcNow;
 				ExpenseEntity.UpdateUserId = request.UserId;
+				dbExpenditureDemand.UpdateDate = DateTime.UtcNow;
+				dbExpenditureDemand.UpdateUserId = request.UserId;
+				dbExpenditureDemand.IsActive = false;
 
 
 				var entityResult = await dbContext.AddAsync(ExpenseEntity, cancellationToken);
