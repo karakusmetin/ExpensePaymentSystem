@@ -13,6 +13,11 @@ using ESP.Business.Mapper;
 using VbApi.Middleware;
 using FluentValidation.AspNetCore;
 using EPS.Business.Validator;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using ESP.Base.TokenJwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System;
 
 namespace EPS.Api
 {
@@ -38,10 +43,7 @@ namespace EPS.Api
 
 			services.AddControllers();
 			
-			services.AddSwaggerGen(c =>
-			{
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = "EPS.Api", Version = "v1" });
-			});
+			services.AddSwaggerGen();
 
 			services.AddControllers().AddFluentValidation(x =>
 			{
@@ -52,6 +54,57 @@ namespace EPS.Api
 
 			services.AddResponseCaching();
 			services.AddMemoryCache();
+			
+			services.AddSwaggerGen(c =>
+			{
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "Expense Payment System Api Management", Version = "v1.0" });
+
+				var securityScheme = new OpenApiSecurityScheme
+				{
+					Name = "Vb Management for IT Company",
+					Description = "Enter JWT Bearer token **_only_**",
+					In = ParameterLocation.Header,
+					Type = SecuritySchemeType.Http,
+					Scheme = "bearer",
+					BearerFormat = "JWT",
+					Reference = new OpenApiReference
+					{
+						Id = JwtBearerDefaults.AuthenticationScheme,
+						Type = ReferenceType.SecurityScheme
+					}
+				};
+				c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
+				c.AddSecurityRequirement(new OpenApiSecurityRequirement
+			{
+				{ securityScheme, new string[] { } }
+			});
+			});
+
+			JwtConfig jwtConfig = Configuration.GetSection("JwtConfig").Get<JwtConfig>();
+			services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
+
+			services.AddAuthentication(x =>
+			{
+				x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+			}).AddJwtBearer(x =>
+			{
+				x.RequireHttpsMetadata = true;
+				x.SaveToken = true;
+				x.TokenValidationParameters = new TokenValidationParameters
+				{
+					ValidateIssuer = true,
+					ValidIssuer = jwtConfig.Issuer,
+					ValidateIssuerSigningKey = true,
+					IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtConfig.Secret)),
+					ValidAudience = jwtConfig.Audience,
+					ValidateAudience = false,
+					ValidateLifetime = true,
+					ClockSkew = TimeSpan.FromMinutes(2)
+				};
+			});
+
+
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

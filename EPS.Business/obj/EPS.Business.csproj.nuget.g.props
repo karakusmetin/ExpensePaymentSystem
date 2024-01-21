@@ -18,6 +18,5 @@
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <PkgEntityFramework Condition=" '$(PkgEntityFramework)' == '' ">C:\Users\fener\.nuget\packages\entityframework\6.3.0</PkgEntityFramework>
-    <PkgHangfire_SqlServer Condition=" '$(PkgHangfire_SqlServer)' == '' ">C:\Users\fener\.nuget\packages\hangfire.sqlserver\1.7.28</PkgHangfire_SqlServer>
   </PropertyGroup>
 </Project>
