@@ -43,7 +43,6 @@ namespace EPS.Api
 
 			services.AddControllers();
 			
-			services.AddSwaggerGen();
 
 			services.AddControllers().AddFluentValidation(x =>
 			{
@@ -82,6 +81,7 @@ namespace EPS.Api
 
 			JwtConfig jwtConfig = Configuration.GetSection("JwtConfig").Get<JwtConfig>();
 			services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
+			services.AddSingleton(jwtConfig);
 
 			services.AddAuthentication(x =>
 			{
@@ -103,6 +103,12 @@ namespace EPS.Api
 					ClockSkew = TimeSpan.FromMinutes(2)
 				};
 			});
+			services.AddAuthorization(options =>
+			{
+				// Policy tanýmlamalarý
+				options.AddPolicy("AdminPolicy", policy => policy.RequireRole("admin"));
+				options.AddPolicy("EmployeePolicy", policy => policy.RequireRole("employee"));
+			});
 
 
 		}
@@ -114,14 +120,16 @@ namespace EPS.Api
 			{
 				app.UseDeveloperExceptionPage();
 				app.UseSwagger();
-				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EPS.Api v1"));
+				app.UseSwaggerUI();
 			}
 			app.UseMiddleware<ErrorHandlerMiddleware>();
 
 			app.UseHttpsRedirection();
 
-			app.UseRouting();
+			app.UseResponseCaching();
 
+			app.UseRouting();
+			app.UseAuthentication();
 			app.UseAuthorization();
 
 			app.UseEndpoints(x => { x.MapControllers(); });

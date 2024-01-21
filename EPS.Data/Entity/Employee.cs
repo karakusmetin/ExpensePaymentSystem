@@ -25,7 +25,7 @@ namespace EPS.Data.Entity
 			builder.Property(x => x.IsActive).IsRequired(true).HasDefaultValue(true);
 
 			builder.Property(x => x.UserName).IsRequired(true).HasMaxLength(15);
-			builder.Property(x => x.Password).IsRequired(true).HasMaxLength(15);
+			builder.Property(x => x.Password).IsRequired(true).HasMaxLength(250);
 			builder.Property(x => x.FirstName).IsRequired(true).HasMaxLength(15);
 			builder.Property(x => x.LastName).IsRequired(true).HasMaxLength(15);
 			builder.Property(x => x.Role).IsRequired(true).HasDefaultValue("employee");

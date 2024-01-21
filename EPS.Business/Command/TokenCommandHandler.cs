@@ -1,5 +1,6 @@
 ﻿using EPS.Business.Cqrs;
 using EPS.Data;
+using EPS.Data.Entity;
 using EPS.Schema;
 using ESP.Base.EncriptionExtension;
 using ESP.Base.Entity;
@@ -29,7 +30,7 @@ namespace EPS.Business.Command
 
 		public async Task<ApiResponse<TokenResponse>> Handle(CreateTokenCommand request, CancellationToken cancellationToken)
 		{
-			var user = await dbContext.Set<UserBaseEntity>().Where(x => x.UserName == request.Model.UserName)
+			var user = await dbContext.Set<Admin>().Where(x => x.UserName == request.Model.UserName)
 				.FirstOrDefaultAsync(cancellationToken);
 			if (user == null)
 			{
@@ -68,7 +69,7 @@ namespace EPS.Business.Command
 			});
 		}
 
-		private string Token(UserBaseEntity user)
+		private string Token(Admin user)
 		{
 			Claim[] claims = GetClaims(user);
 			var secret = Encoding.ASCII.GetBytes(jwtConfig.Secret);
@@ -85,7 +86,7 @@ namespace EPS.Business.Command
 			return accessToken;
 		}
 
-		private Claim[] GetClaims(UserBaseEntity user)
+		private Claim[] GetClaims(Admin user)
 		{
 			var claims = new[]
 			{

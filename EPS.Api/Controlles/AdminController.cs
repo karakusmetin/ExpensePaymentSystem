@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ESP.Base.Response;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EPS.Api.Controlles
 {
@@ -18,9 +19,9 @@ namespace EPS.Api.Controlles
 		{
 			this.mediator = mediator;
 		}
-
-		[HttpGet]
 		
+		[HttpGet]
+		[Authorize(Roles = "admin")]
 		public async Task<ApiResponse<List<AdminResponse>>> Get()
 		{
 			var operation = new GetAllAdminQuery();
