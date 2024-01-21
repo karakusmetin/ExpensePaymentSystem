@@ -33,8 +33,8 @@ namespace EPS.Business.Command
 			}
 			var entity = mapper.Map<EmployeeRequest, Employee>(request.Model);
 			entity.Password = Md5Extension.GetHash(request.Model.Password.Trim());
-			entity.InsertDate = DateTime.Now;
-			entity.UpdateDate = DateTime.Now;
+			entity.InsertDate = DateTime.UtcNow.Date;
+			entity.UpdateDate = DateTime.UtcNow.Date;
 
 			var entityResult = await dbContext.AddAsync(entity, cancellationToken);
 			await dbContext.SaveChangesAsync(cancellationToken);
@@ -54,7 +54,7 @@ namespace EPS.Business.Command
 			dbEmployee.FirstName = request.Model.FirstName;
 			dbEmployee.LastName = request.Model.LastName;
 			dbEmployee.Email = request.Model.Email;
-			dbEmployee.UpdateDate = DateTime.Now;
+			dbEmployee.UpdateDate = DateTime.UtcNow.Date;
 			dbEmployee.Password = Md5Extension.GetHash(request.Model.Password.Trim());
 
 			await dbContext.SaveChangesAsync(cancellationToken);
@@ -70,7 +70,7 @@ namespace EPS.Business.Command
 				return new ApiResponse("Record not found");
 			}
 			dbEmployee.IsActive = false;
-			dbEmployee.UpdateDate = DateTime.Now;
+			dbEmployee.UpdateDate = DateTime.UtcNow.Date;
 			await dbContext.SaveChangesAsync(cancellationToken);
 			return new ApiResponse();
 		}

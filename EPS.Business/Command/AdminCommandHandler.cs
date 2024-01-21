@@ -37,8 +37,8 @@ namespace EPS.Business.Command
 			request.Model.Password = Md5Extension.GetHash(request.Model.Password.Trim());
 			
 			var entity = mapper.Map<AdminRequest, Admin>(request.Model);
-			entity.InsertDate = DateTime.Now;
-			entity.UpdateDate = DateTime.Now;
+			entity.InsertDate = DateTime.UtcNow.Date;
+			entity.UpdateDate = DateTime.UtcNow.Date;
 			entity.PasswordRetryCount = 0;
 			
 
@@ -60,7 +60,7 @@ namespace EPS.Business.Command
 			dbAdmin.FirstName = request.Model.FirstName;
 			dbAdmin.LastName = request.Model.LastName;
 			dbAdmin.Email = request.Model.Email;
-			dbAdmin.UpdateDate = DateTime.Now;
+			dbAdmin.UpdateDate = DateTime.UtcNow.Date;
 			dbAdmin.Password = Md5Extension.GetHash(request.Model.Password.Trim());
 
 			await dbContext.SaveChangesAsync(cancellationToken);
@@ -76,7 +76,7 @@ namespace EPS.Business.Command
 				return new ApiResponse("Record not found");
 			}
 			dbAdmin.IsActive = false;
-			dbAdmin.UpdateDate = DateTime.Now;
+			dbAdmin.UpdateDate = DateTime.UtcNow.Date;
 			await dbContext.SaveChangesAsync(cancellationToken);
 			return new ApiResponse();
 		}

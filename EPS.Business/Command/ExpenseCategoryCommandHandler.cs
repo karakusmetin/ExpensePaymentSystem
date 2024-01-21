@@ -32,8 +32,8 @@ namespace EPS.Business.Command
 				return new ApiResponse<ExpenseCategoryResponse>($"{request.Model.CategoryName} is already exist");
 			}
 			var entity = mapper.Map<ExpenseCategoryRequest, ExpenseCategory>(request.Model);
-			entity.UpdateDate = DateTime.Now;
-			entity.InsertDate = DateTime.Now;
+			entity.UpdateDate = DateTime.UtcNow.Date;
+			entity.InsertDate = DateTime.UtcNow.Date;
 			entity.UpdateUserId = request.UserId;
 
 			var entityResult = await dbContext.AddAsync(entity, cancellationToken);
@@ -52,7 +52,7 @@ namespace EPS.Business.Command
 				return new ApiResponse("Record not found");
 			}
 			dbExpenseCategory.CategoryName = request.Model.CategoryName;
-			dbExpenseCategory.UpdateDate= DateTime.UtcNow;
+			dbExpenseCategory.UpdateDate= DateTime.UtcNow.Date;	
 			dbExpenseCategory.UpdateUserId = request.UserId;
 
 			await dbContext.SaveChangesAsync(cancellationToken);
@@ -68,7 +68,7 @@ namespace EPS.Business.Command
 				return new ApiResponse("Record not found");
 			}
 			dbExpenseCategory.IsActive = false;
-			dbExpenseCategory.UpdateDate = DateTime.UtcNow;
+			dbExpenseCategory.UpdateDate = DateTime.UtcNow.Date;
 			dbExpenseCategory.UpdateUserId = request.UserId;
 			await dbContext.SaveChangesAsync(cancellationToken);
 			return new ApiResponse();

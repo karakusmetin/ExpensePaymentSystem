@@ -38,23 +38,30 @@ public class ApiResponse<T>
 	public bool Success { get; set; }
 	public string Message { get; set; }
 	public T Response { get; set; }
+	public List<T> Items { get; set; } // Yeni eklenen liste özelliği
 
 	public ApiResponse(bool isSuccess)
 	{
 		Success = isSuccess;
 		Response = default;
 		Message = isSuccess ? "Success" : "Error";
+		Items = new List<T>(); // Listeyi burada initialize edebilirsiniz
 	}
+
 	public ApiResponse(T data)
 	{
 		Success = true;
 		Response = data;
 		Message = "Success";
+		Items = new List<T>(); // Listeyi burada initialize edebilirsiniz
 	}
+
 	public ApiResponse(string message)
 	{
 		Success = false;
 		Response = default;
 		Message = message;
+		Items = new List<T>(); // Listeyi burada initialize edebilirsiniz
 	}
 }
+

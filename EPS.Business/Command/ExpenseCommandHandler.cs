@@ -37,10 +37,10 @@ namespace EPS.Business.Command
 				return new ApiResponse<ExpenseResponse>("Employee doesnt exist");
 
 			var entity = mapper.Map<ExpenseRequest, Expense>(request.Model);
-			entity.InsertDate = DateTime.UtcNow;
-			entity.UpdateDate = DateTime.UtcNow;
-			entity.ApprovalDate = DateTime.UtcNow;
-			entity.SubmissionDate = DateTime.UtcNow;
+			entity.InsertDate = DateTime.UtcNow.Date;
+			entity.UpdateDate = DateTime.UtcNow.Date;
+			entity.ApprovalDate = DateTime.UtcNow.Date;
+			entity.SubmissionDate = DateTime.UtcNow.Date;
 			entity.UpdateUserId = request.UserId;
 
 
@@ -62,10 +62,10 @@ namespace EPS.Business.Command
 
 			if (dbExpense.IsApproved != request.Model.IsApproved)
 			{
-				dbExpense.ApprovalDate = DateTime.UtcNow;
+				dbExpense.ApprovalDate = DateTime.UtcNow.Date;
 			}
 			mapper.Map(request.Model, dbExpense);
-			dbExpense.UpdateDate = DateTime.UtcNow;
+			dbExpense.UpdateDate = DateTime.UtcNow.Date;
 			dbExpense.UpdateUserId = request.UserId;
 
 			await dbContext.SaveChangesAsync(cancellationToken);
@@ -82,7 +82,7 @@ namespace EPS.Business.Command
 			}
 			dbExpense.IsActive = false;
 			dbExpense.UpdateUserId= request.UserId;
-			dbExpense.UpdateDate = DateTime.UtcNow;
+			dbExpense.UpdateDate = DateTime.UtcNow.Date;
 			await dbContext.SaveChangesAsync(cancellationToken);
 			return new ApiResponse();
 		}

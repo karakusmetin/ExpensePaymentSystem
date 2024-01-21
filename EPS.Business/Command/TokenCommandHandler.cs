@@ -61,7 +61,7 @@ namespace EPS.Business.Command
 			{
 				Email = user.Email,
 				Token = token,
-				ExpireDate = DateTime.Now.AddMinutes(jwtConfig.AccessTokenExpiration)
+				ExpireDate = DateTime.UtcNow.Date.AddMinutes(jwtConfig.AccessTokenExpiration)
 			});
 		}
 
@@ -88,7 +88,7 @@ namespace EPS.Business.Command
 				jwtConfig.Issuer,
 				jwtConfig.Audience,
 				claims,
-				expires: DateTime.Now.AddMinutes(jwtConfig.AccessTokenExpiration),
+				expires: DateTime.UtcNow.Date.AddMinutes(jwtConfig.AccessTokenExpiration),
 				signingCredentials: new SigningCredentials(new SymmetricSecurityKey(secret), SecurityAlgorithms.HmacSha256Signature)
 			);
 
