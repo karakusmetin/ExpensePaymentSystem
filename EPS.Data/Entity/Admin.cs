@@ -1,8 +1,7 @@
-﻿
-using ESP.Base.Entity;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
+using ESP.Base.Entity;
 
 namespace EPS.Data.Entity
 {

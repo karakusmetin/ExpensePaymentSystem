@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace ESP.Base.Entity
 {
 	public class UserBaseEntity : BaseEntityWithId
@@ -12,7 +7,7 @@ namespace ESP.Base.Entity
 		public string Password { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
-		public int Status{ get; set; }
+		public int Status { get; set; }
 		public string Email { get; set; }
 		public DateTime? LastActivityDate { get; set; }
 		public int? PasswordRetryCount { get; set; }

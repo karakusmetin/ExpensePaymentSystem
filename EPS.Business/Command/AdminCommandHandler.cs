@@ -6,6 +6,7 @@ using EPS.Schema;
 using MediatR;
 using ESP.Base.Response;
 using Microsoft.EntityFrameworkCore;
+using ESP.Base.EncriptionExtension;
 
 namespace EPS.Business.Command
 {
@@ -31,6 +32,7 @@ namespace EPS.Business.Command
 			{
 				return new ApiResponse<AdminResponse>($"{request.Model.UserName} is used by another Admin.");
 			}
+			request.Model.Password = Md5Extension.GetHash(request.Model.Password.Trim());
 			var entity = mapper.Map<AdminRequest, Admin>(request.Model);
 			entity.InsertDate = DateTime.Now;
 			entity.UpdateDate = DateTime.Now;

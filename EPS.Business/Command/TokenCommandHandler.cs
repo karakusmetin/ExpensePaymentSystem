@@ -13,11 +13,11 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading;
 
 namespace EPS.Business.Command
 {
-	public class TokenCommandHandler :
-	IRequestHandler<CreateTokenCommand, ApiResponse<TokenResponse>>
+	public class TokenCommandHandler : IRequestHandler<CreateTokenCommand, ApiResponse<TokenResponse>>
 	{
 		private readonly EPSDbContext dbContext;
 		private readonly JwtConfig jwtConfig;
@@ -30,14 +30,15 @@ namespace EPS.Business.Command
 
 		public async Task<ApiResponse<TokenResponse>> Handle(CreateTokenCommand request, CancellationToken cancellationToken)
 		{
-			var user = await dbContext.Set<Admin>().Where(x => x.UserName == request.Model.UserName)
-				.FirstOrDefaultAsync(cancellationToken);
+			var user = await GetUserByUsernameAsync(request.Model.UserName, cancellationToken);
+
 			if (user == null)
 			{
 				return new ApiResponse<TokenResponse>("Invalid user information");
 			}
 
 			string hash = Md5Extension.GetHash(request.Model.Password.Trim());
+
 			if (hash != user.Password)
 			{
 				user.LastActivityDate = DateTime.UtcNow;
@@ -46,11 +47,7 @@ namespace EPS.Business.Command
 				return new ApiResponse<TokenResponse>("Invalid user information");
 			}
 
-			if (user.Status != 1)
-			{
-				return new ApiResponse<TokenResponse>("Invalid user status");
-			}
-			if (user.PasswordRetryCount > 3)
+			if (user.Status != 1 || user.PasswordRetryCount > 3)
 			{
 				return new ApiResponse<TokenResponse>("Invalid user status");
 			}
@@ -69,9 +66,23 @@ namespace EPS.Business.Command
 			});
 		}
 
-		private string Token(Admin user)
+		private async Task<UserBaseEntity> GetUserByUsernameAsync(string username, CancellationToken cancellationToken)
 		{
-			Claim[] claims = GetClaims(user);
+			var adminUser = await dbContext.Set<Admin>().Where(x => x.UserName == username).FirstOrDefaultAsync(cancellationToken);
+			if (adminUser != null)
+			{
+				adminUser.Role = "admin";
+				return adminUser;
+			}
+
+			var employeeUser = await dbContext.Set<Employee>().Where(x => x.UserName == username).FirstOrDefaultAsync(cancellationToken);
+			employeeUser.Role = "employee";
+			return employeeUser;
+		}
+
+		private string Token(UserBaseEntity user)
+		{
+			Claim[] claims = GetClaimsAsync(user);
 			var secret = Encoding.ASCII.GetBytes(jwtConfig.Secret);
 
 			var jwtToken = new JwtSecurityToken(
@@ -86,17 +97,27 @@ namespace EPS.Business.Command
 			return accessToken;
 		}
 
-		private Claim[] GetClaims(Admin user)
+		private Claim[] GetClaimsAsync(UserBaseEntity user)
 		{
-			var claims = new[]
-			{
-			new Claim("Id", user.Id.ToString()),
-			new Claim("Email", user.Email),
-			new Claim("UserName", user.UserName),
-			new Claim(ClaimTypes.Role, user.Role)
-		};
+			var adminUser = dbContext.Set<Admin>().Where(x => x.UserName == user.UserName).FirstOrDefault();
 
-			return claims;
+			var claims = new List<Claim>
+			{
+				new Claim("Id", user.Id.ToString()),
+				new Claim("Email", user.Email),
+				new Claim("UserName", user.UserName)
+			};
+
+			if (adminUser != null)
+			{
+				claims.Add(new Claim(ClaimTypes.Role, "admin"));
+			}
+			else
+			{
+				claims.Add(new Claim(ClaimTypes.Role, "employee"));
+			}
+
+			return claims.ToArray();
 		}
 	}
 }

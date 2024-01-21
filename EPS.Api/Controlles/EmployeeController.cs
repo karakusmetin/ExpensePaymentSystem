@@ -2,6 +2,7 @@
 using EPS.Schema;
 using ESP.Base.Response;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpGet]
+		
 
 		public async Task<ApiResponse<List<EmployeeResponse>>> Get()
 		{
@@ -29,7 +31,7 @@ namespace EPS.Api.Controlles
 		}
 
 		[HttpGet("{id}")]
-
+		[Authorize(Roles = "admin")]
 		public async Task<ApiResponse<EmployeeResponse>> Get(int id)
 		{
 			var operation = new GetEmployeeByIdQuery(id);
