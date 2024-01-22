@@ -84,6 +84,38 @@ namespace EPS.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Admin", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "metin@example.com",
+                            FirstName = "Metin",
+                            InsertDate = new DateTime(2024, 1, 22, 5, 8, 24, 678, DateTimeKind.Local).AddTicks(7951),
+                            IsActive = true,
+                            LastActivityDate = new DateTime(2024, 1, 22, 5, 8, 24, 678, DateTimeKind.Local).AddTicks(7940),
+                            LastName = "KARAKUŞ",
+                            Password = "14e1b600b1fd579f47433b88e8d85291",
+                            PasswordRetryCount = 0,
+                            Role = "admin",
+                            Status = 1,
+                            UserName = "admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "admin.user@example.com",
+                            FirstName = "Admin",
+                            InsertDate = new DateTime(2024, 1, 22, 5, 8, 24, 678, DateTimeKind.Local).AddTicks(7955),
+                            IsActive = true,
+                            LastActivityDate = new DateTime(2024, 1, 22, 5, 8, 24, 678, DateTimeKind.Local).AddTicks(7954),
+                            LastName = "BigAdmin",
+                            Password = "14e1b600b1fd579f47433b88e8d85291",
+                            PasswordRetryCount = 0,
+                            Role = "admin",
+                            Status = 1,
+                            UserName = "admin1"
+                        });
                 });
 
             modelBuilder.Entity("EPS.Data.Entity.Employee", b =>

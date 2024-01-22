@@ -32,7 +32,7 @@ namespace EPS.Business.Command
 		public async Task<ApiResponse<ExpenditureDemandResponse>> Handle(CreateExpenditureDemandCommand request, CancellationToken cancellationToken)
 		{
 			//var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-			var checkCategory = dbContext.Set<ExpenseCategory>().Where(x => x.Id == request.Model.ExpenseCategoryId)
+			var checkCategory =	await dbContext.Set<ExpenseCategory>().Where(x => x.Id == request.Model.ExpenseCategoryId)
 				.FirstOrDefaultAsync(cancellationToken);
 
 			var checkUser = await dbContext.Employees.SingleOrDefaultAsync(x => x.Id == request.UserId);
