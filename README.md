@@ -1,7 +1,8 @@
-<img width="651" alt="60b61919b7a0ca91071074cc_automated expense reporting main banner" src="https://github.com/karakusmetin/Patika-Cohorts-Assignment7-Week5/assets/106442941/bdefad74-5d75-44c5-a1fa-c180cbd165f1">
+
+![Expense Payment System (1)](https://github.com/karakusmetin/ExpensePaymentSystem/assets/106442941/84fa349d-b660-432d-b5a8-90f379e91184)
+
 
 Kodluyoruz ve Akbank iş birliği ile yapılan **Akbank .Net Bootcamp**'nin bitirme projesi olarak **Expense Payment System** adlı uygulamayı geliştirdim.Bu proje, sahada çalışan personelin masraf takibi ve ödeme yönetimi için bir uygulamayı içermektedir. Sistem, şirket içindeki yönetici ve saha personeli olmak üzere iki farklı rolde hizmet vermektedir.
- Projenin içerisinde İki farklı kullanıcı tipi bulunmakta
 
 # Masraf Ödeme Sistemi
 
