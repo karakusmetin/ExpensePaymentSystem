@@ -50,12 +50,12 @@ namespace EPS.Business.Query
 
 		public async Task<ApiResponse<List<ExpenseResponse>>> Handle(GetExpenseByParameterQuery request, CancellationToken cancellationToken)
 		{
-			var predicate = PredicateBuilder.New<Expense>(true);
+			var predicate = PredicateBuilder.New<Expense>(false);
 
-			if (string.IsNullOrEmpty(request.Title))
+			if (!string.IsNullOrEmpty(request.Title))
 				predicate.And(x => x.Title.ToUpper().Contains(request.Title.ToUpper()));
 			
-			if (string.IsNullOrEmpty(request.ExpenseCategory))
+			if (!string.IsNullOrEmpty(request.ExpenseCategory))
 				predicate.And(x => x.ExpenseCategory.CategoryName.ToUpper().Contains(request.ExpenseCategory.ToUpper()));
 
 			var list = await dbContext.Set<Expense>()

@@ -4,7 +4,6 @@ using ESP.Base.Response;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,43 +16,48 @@ namespace EPS.Api.Controlles
 		private readonly IMediator mediator;
 
 		[HttpGet("employee/{employeeId}")]
-		public async Task<IActionResult> GetEmployeeExpenses(int employeeId)
+		
+		public async Task<ApiResponse<ExpenseResponse>> GetEmployeeExpensesEmployeeId(int employeeId)
 		{
 			var operation = new GetEmployeeExpenses(employeeId);
 			var result = await mediator.Send(operation);
-			return Ok(result);
+			return result;
 		}
 
 		[HttpPost("employee/bydate/{employeeId}")]
-		public async Task<IActionResult> GetEmployeeExpensesByDate(int employeeId, [FromBody] DapperRequest model)
+		[Authorize(Roles = "admin")]
+		public async Task<ApiResponse<List<ExpenseResponse>>> GetEmployeeExpensesByDateEmployeeId(int employeeId, [FromBody] DapperRequest model)
 		{
 			var operation = new GetEmployeeExpensesByDate(employeeId, model);
 			var result = await mediator.Send(operation);
-			return Ok(result);
+			return result;
 		}
 
 		[HttpPost("totalpayments")]
-		public async Task<IActionResult> GetTotalPayments([FromBody] DapperRequest model)
+		[Authorize(Roles = "admin")]
+		public async Task<ApiResponse<List<ExpenseResponse>>> GetPayments([FromBody] DapperRequest model)
 		{
 			var operation = new GetTotalPayments(model);
 			var result = await mediator.Send(operation);
-			return Ok(result);
+			return result;
 		}
 
 		[HttpPost("approvedexpenses")]
-		public async Task<IActionResult> GetApprovedExpensesTotal([FromBody] DapperRequest model)
+		[Authorize(Roles = "admin")]
+		public async Task<ApiResponse<List<ExpenseResponse>>> GetApprovedExpensesTotals([FromBody] DapperRequest model)
 		{
 			var operation = new GetApprovedExpensesTotal(model);
 			var result = await mediator.Send(operation);
-			return Ok(result);
+			return result;
 		}
 
 		[HttpPost("rejectedexpenses")]
-		public async Task<IActionResult> GetRejectedExpensesTotal([FromBody] DapperRequest model)
+		[Authorize(Roles = "admin")]
+		public async Task<ApiResponse<List<ExpenseResponse>>> GetRejectedExpenses([FromBody] DapperRequest model)
 		{
-			var operation = await GetRejectedExpensesTotal(model);
+			var operation = new GetRejectedExpensesTotal(model);
 			var result = await mediator.Send(operation);
-			return Ok(result);
+			return result;
 		}
 	}
 }

@@ -1,36 +1,32 @@
-﻿using Stripe;
+﻿using System;
 
 namespace EPS.Business.Services
 {
 	public interface IPaymentService
 	{
-		Task<bool> ProcessPaymentAsync(decimal amount, string currency, string cardToken);
+		bool SimulatePayment(decimal amount, string currency, string paymentMethod);
 	}
-}
 
-// PaymentService.cs
-
-namespace EPS.Business.Services
-{
-	public class PaymentService : IPaymentService
+	public class PaymentSimulator : IPaymentService
 	{
-		public async Task<bool> ProcessPaymentAsync(decimal amount, string currency, string cardToken)
+		public bool SimulatePayment(decimal amount, string currency, string paymentMethod)
 		{
-			
-				var options = new PaymentIntentCreateOptions
-				{
-					Amount = (long)(amount * 100), // Convert to cents
-					Currency = currency,
-					PaymentMethod = cardToken,
-					ConfirmationMethod = "manual",
-					Confirm = true,
-				};
 
-				var service = new PaymentIntentService();
-				var paymentIntent = await service.CreateAsync(options);
 
-				return paymentIntent.Status == "succeeded";
-			
+
+			// Ödeme başarılıysa
+			if (paymentMethod == "success")
+			{
+
+				return true;
+			}
+			else
+			{
+				// Ödeme başarısızsa
+
+				return false;
+			}
 		}
 	}
 }
+

@@ -49,15 +49,21 @@ namespace EPS.Business.Query
 
 		public async Task<ApiResponse<List<AdminResponse>>> Handle(GetAdminByParameterQuery request, CancellationToken cancellationToken)
 		{
-			var predicate = PredicateBuilder.New<Admin>(true);
-			if (string.IsNullOrEmpty(request.FirstName))
+			var predicate = PredicateBuilder.New<Admin>(false); // varsayılan olarak false
 
-				predicate.And(x => x.FirstName.ToUpper().Contains(request.FirstName.ToUpper()));
-			if (string.IsNullOrEmpty(request.LastName))
-				predicate.And(x => x.LastName.ToUpper().Contains(request.LastName.ToUpper()));
+			if (!string.IsNullOrEmpty(request.FirstName))
+			{
+				predicate = predicate.And(x => x.FirstName.ToUpper().Contains(request.FirstName.ToUpper()));
+			}
+
+			if (!string.IsNullOrEmpty(request.LastName))
+			{
+				predicate = predicate.And(x => x.LastName.ToUpper().Contains(request.LastName.ToUpper()));
+			}
 
 			var list = await dbContext.Set<Admin>()
-				.Where(predicate).ToListAsync(cancellationToken);
+				.Where(predicate)
+				.ToListAsync(cancellationToken);
 
 			var mappedList = mapper.Map<List<Admin>, List<AdminResponse>>(list);
 			return new ApiResponse<List<AdminResponse>>(mappedList);

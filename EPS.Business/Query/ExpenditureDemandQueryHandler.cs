@@ -53,14 +53,14 @@ namespace EPS.Business.Query
 
 		public async Task<ApiResponse<List<ExpenditureDemandResponse>>> Handle(GetExpenditureDemandByParameterQuery request, CancellationToken cancellationToken)
 		{
-			var predicate = PredicateBuilder.New<ExpenditureDemand>(true);
-			if (string.IsNullOrEmpty(request.EmployeeFirstName))
+			var predicate = PredicateBuilder.New<ExpenditureDemand>(false);
+			if (!string.IsNullOrEmpty(request.EmployeeFirstName))
 				predicate.And(x => x.Employee.FirstName.ToUpper().Contains(request.EmployeeFirstName.ToUpper()));
 			
-			if (string.IsNullOrEmpty(request.EmployeeLastName))
+			if (!string.IsNullOrEmpty(request.EmployeeLastName))
 				predicate.And(x => x.Employee.LastName.ToUpper().Contains(request.EmployeeLastName.ToUpper()));
 			
-			if (string.IsNullOrEmpty(request.Title))
+			if (!string.IsNullOrEmpty(request.Title))
 				predicate.And(x => x.Title.ToUpper().Contains(request.Title.ToUpper()));
 
 			var list = await dbContext.Set<ExpenditureDemand>()

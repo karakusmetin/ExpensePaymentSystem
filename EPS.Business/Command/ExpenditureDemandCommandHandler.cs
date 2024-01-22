@@ -95,6 +95,7 @@ namespace EPS.Business.Command
 			}
 
 			var entity = mapper.Map<ExpenditureDemandAdminRequest, ExpenditureDemand>(request.Model);
+			
 			if (entity.IsApproved == ExpenditureDemandStatus.pending)
 			{
 				entity.UpdateDate = DateTime.UtcNow;
@@ -105,19 +106,17 @@ namespace EPS.Business.Command
 			else
 			{
 				if (entity.IsApproved == ExpenditureDemandStatus.approved)
-					if (await paymentService.ProcessPaymentAsync(entity.Amount, "usd", "stripe_card_token"))
+					if (paymentService.SimulatePayment(entity.Amount, "USD", "success"))
 					{
 						var ExpenseEntity = mapper.Map<ExpenditureDemand, Expense>(entity);
 						ExpenseEntity.ApprovalDate = DateTime.UtcNow;
 						ExpenseEntity.UpdateDate = DateTime.UtcNow;
 						ExpenseEntity.InsertDate = DateTime.UtcNow;
 						ExpenseEntity.UpdateUserId = request.UserId;
-						dbExpenditureDemand.UpdateDate = DateTime.UtcNow;
-						dbExpenditureDemand.UpdateUserId = request.UserId;
-						dbExpenditureDemand.IsActive = false;
+					
 
 
-						var entityResult = await dbContext.AddAsync(ExpenseEntity, cancellationToken);
+						dbContext.Set<Expense>().Add(ExpenseEntity);
 
 						await dbContext.SaveChangesAsync(cancellationToken);
 						return new ApiResponse("Payment Operation");

@@ -11,7 +11,7 @@ using AutoMapper;
 namespace EPS.Business.Query
 {
 	public class DapperReportQueryHandler:
-		IRequestHandler<GetEmployeeExpenses, ApiResponse<List<ExpenseResponse>>>,
+		IRequestHandler<GetEmployeeExpenses, ApiResponse<ExpenseResponse>>,
 		IRequestHandler<GetEmployeeExpensesByDate, ApiResponse<List<ExpenseResponse>>>,
 		IRequestHandler<GetTotalPayments, ApiResponse<List<ExpenseResponse>>>,
 		IRequestHandler<GetApprovedExpensesTotal, ApiResponse<List<ExpenseResponse>>>,
@@ -27,15 +27,27 @@ namespace EPS.Business.Query
 			this.mapper = mapper;
 		}
 
-		public async Task<ApiResponse<List<ExpenseResponse>>> Handle(GetEmployeeExpenses request, CancellationToken cancellationToken)
+		public async Task<ApiResponse<ExpenseResponse>> Handle(GetEmployeeExpenses request, CancellationToken cancellationToken)
 		{
 			var connection = dbContext.Database.GetDbConnection();
+
+			// Parametreli sorgu kullanımı
 			var query = "SELECT * FROM Expense WHERE EmployeeId = @EmployeeId";
 			var expenses = await connection.QueryAsync<Expense>(query, new { EmployeeId = request.employeeId });
 
-			var mappedList = mapper.Map<IEnumerable<Expense>, List<ExpenseResponse>>(expenses);
+			// Boş bir koleksiyon mu kontrol et
+			if (expenses == null || !expenses.Any())
+			{
+				return new ApiResponse<ExpenseResponse>("KÖTÜ İSTEK");
+			}
 
-			return new ApiResponse<List<ExpenseResponse>>(mappedList);
+			// Dönen koleksiyondan sadece bir öğe al
+			var expense = expenses.First();
+
+			// Map işlemi için IEnumerable değil, tek bir öğe kullanılmalı
+			var mappedExpense = mapper.Map<Expense, ExpenseResponse>(expense);
+
+			return new ApiResponse<ExpenseResponse>(mappedExpense);
 		}
 
 		public async Task<ApiResponse<List<ExpenseResponse>>> Handle(GetEmployeeExpensesByDate request, CancellationToken cancellationToken)

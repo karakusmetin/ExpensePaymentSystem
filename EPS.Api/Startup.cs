@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System;
 using EPS.Business.Services;
+using EPS.Business.Query;
 
 namespace EPS.Api
 {
@@ -38,6 +39,7 @@ namespace EPS.Api
 			services.AddDbContext<EPSDbContext>(options => options.UseSqlServer(connection));
 
 			services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateAdminCommand).GetTypeInfo().Assembly));
+			services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DapperReportQueryHandler).GetTypeInfo().Assembly));
 			
 			var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new MapperConfig()));
 			services.AddSingleton(mapperConfig.CreateMapper());
@@ -114,7 +116,7 @@ namespace EPS.Api
 			});
 
 
-			services.AddScoped<IPaymentService, PaymentService>();
+			services.AddScoped<IPaymentService, PaymentSimulator>();
 
 		}
 
@@ -127,7 +129,7 @@ namespace EPS.Api
 				app.UseSwagger();
 				app.UseSwaggerUI();
 			}
-			app.UseMiddleware<ErrorHandlerMiddleware>();
+			//app.UseMiddleware<ErrorHandlerMiddleware>();
 
 			app.UseHttpsRedirection();
 
